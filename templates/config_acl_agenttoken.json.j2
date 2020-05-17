@@ -6,7 +6,7 @@
 "bind_addr": "0.0.0.0",
 "client_addr": "0.0.0.0",
 "advertise_addr": "{{ansible_default_ipv4.address}}",
-"encrypt": "0nPnhe+YEdMvoxQ7SaMSrl3GdWllemmQLyScRP7VEzs=",
+"encrypt": "{{keygen.stdout }}",
 "bootstrap_expect": {{number_servers}},
 "retry_join": ["consuls1", "consuls2", "consuls3"],
 "ui": true,

@@ -6,6 +6,6 @@
   "bind_addr": "{{ansible_default_ipv4.address}}",
   "client_addr": "127.0.0.1",
   "retry_join": ["consuls1", "consuls2", "consuls3"],
-  "encrypt": "0nPnhe+YEdMvoxQ7SaMSrl3GdWllemmQLyScRP7VEzs="
+  "encrypt": "{{keygen.stdout }}"
 
 }
