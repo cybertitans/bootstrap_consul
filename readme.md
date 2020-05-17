@@ -53,3 +53,4 @@ ansible_python_interpreter=/usr/bin/python2.7
 - If ACL is not required use config.json.j2 template and run installcluster.yml
 - Check the polices to ensure required access is provided
 - Tokens created will be stored in ~/.tokenname  
+- Binary is expected to be in files/consul/consul_1.7.2_linux_amd64.zip
