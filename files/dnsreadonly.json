@@ -1,0 +1,5 @@
+{
+# use dig @127.0.0.1 -p 8600 consul.service.consul to test
+  "name": "service-consul-read",
+  "rules": "service \"consul\" { policy = \"read\" }"
+  }

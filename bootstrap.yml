@@ -1,0 +1,136 @@
+- hosts: cs
+  become: yes
+
+# Enable ACL by changing config.json on all servers & reloading them
+  tasks:
+  - name: Load vars of encryption_keygen into the 'keygen' var
+    include_vars:
+     file: group_vars/encryption_keygen
+     name: keygen
+
+  - name: Copy config template
+    template:
+      src: templates/config_acl.json.j2
+      dest: "/etc/consul.d/config.json"
+      force: yes
+    notify: reload consul
+
+  handlers:
+    - name: reload consul
+      service:
+       name: consul
+       state: restarted
+
+# Start bootstrap process and use one server (consuls1)
+-  name: Start bootstrap
+   hosts: consuls1
+   tasks:
+    - name: pause to allow the cluster to come up
+      pause:
+       seconds: 20
+
+# Create and bootstrap master_token (make sure you secure it)
+    - name: bootstrap Server
+      uri:
+       url: http://consuls1:8500/v1/acl/bootstrap
+       headers:
+       method: PUT
+       return_content: yes
+      register: master_token
+
+# Print returned master_token json dictionary
+    - name: Print returned master_token json dictionary
+      debug:
+        var: master_token.json
+
+    - name: copy the output to a local file
+      copy:
+       content: "{{ master_token.json.SecretID }}"
+       dest: "~/.master_token"
+      delegate_to: localhost
+
+# Create new policies for the consul agents, dns and to list nodes
+    - name: Create required policies
+      uri:
+       url: http://consuls1:8500/v1/acl/policy
+       headers:
+        X-Consul-Token: "{{ master_token.json.SecretID }}"
+       method: PUT
+       return_content: true
+       body_format: json
+       body: "{{ lookup('file', item) }}"
+      with_items:
+       - files/agentpolicy.json
+       - files/ui-policy.json
+       - files/dnsreadonly.json
+       - files/listallnodes.json
+
+# Create agent token and save it to ~/.agent_token
+    - name: Create a new agent_token using shell module
+      environment:
+       CONSUL_HTTP_TOKEN: "{{ master_token.json.SecretID }}"
+      shell: 'consul acl token create -description "Agent Token" -policy-name "agent-policy"'
+      register: agent_token
+
+# Print returned agent_token json dictionary
+    - name: Print returned agent_token json dictionary
+      debug:
+        var: "agent_token.stdout_lines"
+
+    - name: copy the agent_token output to a local file
+      copy:
+       content: "{{ agent_token.stdout}}"
+       dest: "~/.agent_token"
+      delegate_to: localhost
+
+# Create a new token for the UI and associated token and save it ~/.ui_token
+    - name: Create a new token for ui using shell module
+      environment:
+       CONSUL_HTTP_TOKEN: "{{ master_token.json.SecretID }}"
+      shell: 'consul acl token create -description "UI Token" -policy-name "ui-policy"'
+      register: ui_token
+
+# Print returned ui_token json dictionary
+    - name: Print returned ui_token json dictionary
+      debug:
+        var: ui_token.stdout_lines
+
+    - name: copy the ui_token output to a local file
+      copy:
+       content: "{{ ui_token.stdout_lines }}"
+       dest: "~/.ui_token"
+      delegate_to: localhost
+
+# Update the anonymous token and associate with DNS and node list policy (Optional)
+
+    - name: Update and associate above policies with anonymous token
+      environment:
+       CONSUL_HTTP_TOKEN: "{{ master_token.json.SecretID }}"
+      shell: |
+       consul acl token update -id 00000000-0000-0000-0000-000000000002 -policy-name list-all-nodes -description "Anonymous Token - Can List Nodes"
+       consul acl token update -id 00000000-0000-0000-0000-000000000002 --merge-policies -description "Anonymous Token - Can List Nodes" -policy-name service-consul-read
+
+# Update servers config.json with agent_token and reload
+- hosts: cs
+  become: yes
+  tasks:
+
+# Read and load agent_token previously created.
+
+  - name: Include vars of agent_token into the 'agent_token'
+    include_vars:
+     file: "~/.agent_token"
+     name: agenttoken
+
+  - name: Add agent_token to all serverss config.json
+    template:
+      src: templates/config_acl_agenttoken.json.j2
+      dest: "/etc/consul.d/config.json"
+      force: yes
+    notify: reload consul
+
+  handlers:
+    - name: reload consul
+      service:
+       name: consul
+       state: restarted

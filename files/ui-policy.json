@@ -1,0 +1,5 @@
+{
+   "name": "ui-policy",
+   "description": "Necessary permissions for UI functionality",
+   "rules": "key_prefix \"\" { policy = \"read\" } node_prefix \"\" { policy = \"read\" } service_prefix \"\" { policy = \"read\" }"
+}

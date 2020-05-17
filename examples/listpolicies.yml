@@ -1,0 +1,21 @@
+ - name: Get list of existing policies
+   hosts: lemp
+   tasks:
+    - name: Create a new policy
+      uri:
+       url: http://lemp01:8500/v1/acl/policies
+       follow_redirects: all
+       headers:
+        X-Consul-Token: "bfa32ce6-27df-0116-8ab2-59f02b107f15"
+        Content-Type: "application/json"
+       method: GET
+       body_format: json
+      register: data
+# Print returned policies json dictionary
+    - name: Print returned json dictionary
+      debug:
+        var: data.json
+# Print certain element
+    - name: Print certain element
+      debug:
+        var: data.json[0]

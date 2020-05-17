@@ -1,0 +1,81 @@
+- name: Install Consul servers
+  become: yes
+  hosts: cs
+
+  tasks:
+
+# Create consul user and group
+  - name: Add group for consul
+    group:
+     name: consul
+     state: present
+
+  - name: Add user for consul
+    user:
+     name: consul
+     groups: consul
+     shell: /sbin/nologin
+     state: present
+     append: yes
+     comment: "consul account"
+
+# Create required directories
+  - name: create required directories
+    file:
+     path: "{{ item }}"
+     state: directory
+     owner: consul
+     group: consul
+    with_items:
+      - /etc/consul.d
+      - /consul-data
+
+# Install unzip
+  - name: Install unzip
+    apt:
+      force_apt_get: yes
+      update_cache: yes
+      name: unzip
+      state: present
+
+# Copy consul binary to server
+  - name: Copy consul binary to the servers
+    unarchive:
+      src: "files/consul/consul_1.7.2_linux_amd64.zip"
+      dest: "/usr/bin"
+
+# consul keygen 32-bytes, Base64 encoded
+  - name: Create a new keygen using shell module
+    shell: 'consul keygen'
+    run_once: true
+    register: keygen
+
+  - name: Print returned keygen json dictionary
+    debug:
+     var: keygen.stdout
+
+  - name: copy the keygen output to a local file
+    copy:
+     content: '{{ keygen }}'
+     dest: "group_vars/encryption_keygen"
+    delegate_to: localhost
+    run_once: true
+
+# Copy config.json template file to server
+  - name: Copy config template
+    template:
+      src: templates/config.json.j2
+      dest: "/etc/consul.d/config.json"
+
+# Copy the consul.service file to server
+  - name: Copy config template
+    copy:
+     src: files/consul.service
+     dest: "/etc/systemd/system/consul.service"
+
+# start consul
+  - name:  Start consul
+    service:
+      name: consul
+      state: started
+      enabled: yes

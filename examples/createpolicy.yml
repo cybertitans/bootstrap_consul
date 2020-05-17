@@ -1,0 +1,30 @@
+- name: Create new policy using API
+  become: yes
+  hosts: dev01
+  tasks:
+# Create a new policy using HTTP body option
+  - name: Create new policy using body
+    uri:
+      url: http://dev01:8500/v1/acl/policy
+      follow_redirects: all
+      headers:
+       X-Consul-Token: "bfa32ce6-27df-0116-8ab2-59f02b107f15"
+       Content-Type: "application/json"
+      method: PUT
+      body: "{{ lookup('file','files/policy.json') }}"
+      body_format: json
+
+# Create a new policy using src file
+  - name: Create new a policy using src file
+    uri:
+      url: http://lemp01:8500/v1/acl/policy
+      headers:
+       X-Consul-Token: bfa32ce6-27df-0116-8ab2-59f02b107f15
+      method: PUT
+      return_content: true
+      body_format: json
+      src: files/policy.json
+
+# Create a new policy using shell
+  - name: Create a new policy using shell module
+    shell: 'curl --request PUT --data @/home/saeed/policy.json -H "Content-Type: application/json" http://dev01:8500/v1/acl/policy?token=bfa32ce6-27df-0116-8ab2-59f02b107f15'

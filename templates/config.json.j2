@@ -1,0 +1,14 @@
+{
+"server": true,
+"node_name": "{{ansible_hostname}}",
+"datacenter": "{{datacenter}}",
+"data_dir": "/consul-data",
+"bind_addr": "0.0.0.0",
+"client_addr": "0.0.0.0",
+"advertise_addr": "{{ansible_default_ipv4.address}}",
+"encrypt": "{{keygen.stdout }}",
+"bootstrap_expect": {{number_servers}},
+"retry_join": ["consuls1", "consuls2", "consuls3"],
+"ui": true,
+"acl_enforce_version_8": false
+}

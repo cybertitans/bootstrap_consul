@@ -1,0 +1,4 @@
+{
+  "name": "list-all-nodes",
+  "rules": "node_prefix \"\" { policy = \"read\" }"
+    }

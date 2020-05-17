@@ -1,0 +1,22 @@
+- name: Enable ACLs
+  become: yes
+  hosts: cs
+
+  tasks:
+  - name: Include vars of encryption_keygen into the 'keygen'
+    include_vars:
+     file: group_vars/encryption_keygen
+     name: keygen
+
+  - name: Copy config template
+    template:
+      src: templates/config_acl.json.j2
+      dest: "/etc/consul.d/config.json"
+      force: yes
+    notify: reload consul
+
+  handlers:
+    - name: reload consul
+      service:
+       name: consul
+       state: restarted
