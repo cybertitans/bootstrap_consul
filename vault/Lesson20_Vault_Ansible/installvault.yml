@@ -1,0 +1,54 @@
+- name: Install vault servers
+  become: yes
+  hosts: cc
+
+  tasks:
+
+# Create vault user and group
+  - name: Add group for vault
+    group:
+     name: vault
+     state: present
+
+  - name: Add user for vault
+    user:
+     name: vault
+     groups: vault
+     shell: /sbin/nologin
+     state: present
+     append: yes
+     comment: "vault account"
+
+# Create required directories
+  - name: create required directories
+    file:
+     path: "{{ item }}"
+     state: directory
+     owner: vault
+     group: vault
+    with_items:
+      - /etc/vault
+      - /vault-data
+      - /logs/vault/
+
+# Copy the binary, vault.service & certs to servers
+  - name: Copy config files and certs
+    copy: src={{ item.src }} dest={{ item.dest }}
+    with_items:
+     - { src: 'files/service',  dest: '/etc/systemd/system/vault.service' }
+     - { src: 'files/certs.pem', dest: '/etc/vault/certs.pem'}
+     - { src: 'files/vaultkey.pem', dest: '/etc/vault/vaultkey.pem'}
+     - { src: 'files/vault_1.4.1_linux_amd64', dest: '/usr/bin/vault_1.4.1_linux_amd64'}
+
+  - name: Copy config.json to servers
+    template:
+     src: files/config.json.j2
+     dest: "/etc/vault/config.json"
+
+#Restart and enable vault service at boot up
+  handlers:
+   - name: install vault
+     service:
+      name: vault
+      state: restarted
+      enabled: yes
