@@ -45,8 +45,8 @@
       enabled: yes
 
 # Install autocomplete-install
-    handlers:
-    - name: Install autocomplete-install
-      become: no
-      shell:
-        cmd: "consul -autocomplete-install"
+  handlers:
+   - name: Install autocomplete-install
+     become: no
+     shell:
+      cmd: "consul -autocomplete-install"

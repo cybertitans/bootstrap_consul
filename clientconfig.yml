@@ -12,29 +12,22 @@
     include_vars:
      file: "~/.agent_token"
      name: agenttoken
-# Install consul
+
+# Copy consul binary to clients/agents
   - name: Include task list in play only if the condition is true
     include: installconsul.yml
+
+# Copy config.json template file to agents/clients
+  - name: Copy config template
+    template:
+      src: templates/agent_config_acl.json.j2
+      dest: "/etc/consul.d/config.json"
 
 # Copy the consul.service file to agents/clients
   - name: Copy config template
     copy:
      src: files/agent_consul.service
      dest: "/etc/systemd/system/consul.service"
-
-# Install unzip
-  - name: Install unzip
-    apt:
-      update_cache: yes
-      force_apt_get: yes
-      name: unzip
-      state: present
-# Copy consul binary to server
-  - name: Copy consul binary to the servers
-    unarchive:
-      src: "files/consul/consul_1.7.2_linux_amd64.zip"
-      dest: "/usr/bin"
-    notify: Install autocomplete-install
 
 # start consul
   - name:  Start consul
