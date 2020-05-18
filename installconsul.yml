@@ -1,0 +1,39 @@
+# Create consul user and group
+  - name: Add group for consul
+    group:
+     name: consul
+     state: present
+
+  - name: Add user for consul
+    user:
+     name: consul
+     groups: consul
+     shell: /sbin/nologin
+     state: present
+     append: yes
+     comment: "consul account"
+
+# Create required directories
+  - name: create required directories
+    file:
+     path: "{{ item }}"
+     state: directory
+     owner: consul
+     group: consul
+    with_items:
+      - /etc/consul.d
+      - /consul-data
+
+# Install unzip
+  - name: Install unzip
+    apt:
+      force_apt_get: yes
+      update_cache: yes
+      name: unzip
+      state: present
+
+# Copy consul binary to server
+  - name: Copy consul binary to the servers
+    unarchive:
+      src: "files/consul/consul_1.7.2_linux_amd64.zip"
+      dest: "/usr/bin"
