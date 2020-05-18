@@ -35,7 +35,7 @@
   - name: Copy config files and certs
     copy: src={{ item.src }} dest={{ item.dest }}
     with_items:
-     - { src: 'files/service',  dest: '/etc/systemd/system/vault.service' }
+     - { src: 'files/vault.service',  dest: '/etc/systemd/system/vault.service' }
      - { src: 'files/certs.pem', dest: '/etc/vault/certs.pem'}
      - { src: 'files/vaultkey.pem', dest: '/etc/vault/vaultkey.pem'}
      - { src: 'files/vault_1.4.1_linux_amd64', dest: '/usr/bin/vault_1.4.1_linux_amd64'}
