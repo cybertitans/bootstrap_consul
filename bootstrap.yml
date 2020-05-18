@@ -116,7 +116,6 @@
   tasks:
 
 # Read and load agent_token previously created.
-
   - name: Include vars of agent_token into the 'agent_token'
     include_vars:
      file: "~/.agent_token"
