@@ -2,7 +2,7 @@
 # Warning! Only use this when rebuilding new cluster.
 
 - name: install consul (ACL not enabled)
-  import_playbook: installcluster.yml
+  import_playbook: serverconfig.yml
 
 # If ACL is not required just run the install playbook or comment out below two
 
@@ -10,4 +10,4 @@
   import_playbook: bootstrap.yml
 
 - name: install & configure the agents with the right token
-  import_playbook: agent.yml
+  import_playbook: clientconfig.yml
