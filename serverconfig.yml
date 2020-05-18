@@ -3,6 +3,8 @@
   hosts: cs
 
   tasks:
+
+  # Copy consul binary to servers
   - name: Include task list in play only if the condition is true
     include: installconsul.yml
 
@@ -41,3 +43,10 @@
       name: consul
       state: started
       enabled: yes
+
+# Install autocomplete-install
+    handlers:
+    - name: Install autocomplete-install
+      become: no
+      shell:
+        cmd: "consul -autocomplete-install"

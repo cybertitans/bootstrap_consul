@@ -12,38 +12,9 @@
     include_vars:
      file: "~/.agent_token"
      name: agenttoken
-
-# Create consul user and group
-  - name: Add group for consul
-    group:
-     name: consul
-     state: present
-
-  - name: Add user for consul
-    user:
-     name: consul
-     groups: consul
-     shell: /sbin/nologin
-     state: present
-     append: yes
-     comment: "consul account"
-
-# Create required directories
-  - name: create required directories
-    file:
-     path: "{{ item }}"
-     state: directory
-     owner: consul
-     group: consul
-    with_items:
-      - /etc/consul.d
-      - /consul-data
-
-# Copy config.json template file to agents/clients
-  - name: Copy config template
-    template:
-      src: templates/agent_config_acl.json.j2
-      dest: "/etc/consul.d/config.json"
+# Install consul
+  - name: Include task list in play only if the condition is true
+    include: installconsul.yml
 
 # Copy the consul.service file to agents/clients
   - name: Copy config template
