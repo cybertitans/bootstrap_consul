@@ -6,7 +6,7 @@
 
   # Copy consul binary to servers
   - name: Include task list in play only if the condition is true
-    include: installconsul.yml
+    include: tasks/installconsul.yml
 
 # consul keygen 32-bytes, Base64 encoded
   - name: Create a new keygen using shell module

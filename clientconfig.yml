@@ -15,7 +15,7 @@
 
 # Copy consul binary to clients/agents
   - name: Include task list in play only if the condition is true
-    include: installconsul.yml
+    include: tasks/installconsul.yml
 
 # Copy config.json template file to agents/clients
   - name: Copy config template
