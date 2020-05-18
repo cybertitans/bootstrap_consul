@@ -34,8 +34,6 @@
 # Copy the binary, vault.service & certs to servers
   - name: Copy config files and certs
     copy: src={{ item.src }} dest={{ item.dest }}
-    owner: vault
-    mode: 0755
     with_items:
      - { src: 'files/vault.service',  dest: '/etc/systemd/system/vault.service' }
      - { src: 'files/certs.pem', dest: '/etc/vault/certs.pem'}
