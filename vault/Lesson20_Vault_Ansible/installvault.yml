@@ -35,11 +35,12 @@
   - name: Copy config files and certs
     copy: src={{ item.src }} dest={{ item.dest }}
     owner: vault
+    mode: 0755
     with_items:
      - { src: 'files/vault.service',  dest: '/etc/systemd/system/vault.service' }
      - { src: 'files/certs.pem', dest: '/etc/vault/certs.pem'}
      - { src: 'files/vaultkey.pem', dest: '/etc/vault/vaultkey.pem'}
-     - { src: 'files/vault_1.4.1_linux_amd64', dest: '/usr/bin/vault', mode: 0755}
+     - { src: 'files/vault_1.4.1_linux_amd64', dest: '/usr/bin/vault' }
 
   - name: Copy config.json to servers
     template:
