@@ -33,6 +33,7 @@
 
 # Install autocomplete
   - name: Install autocomplete
+    become: no
     shell: "consul -autocomplete-install"
 
 #Re start consul
