@@ -54,3 +54,8 @@
       name: vault.service
       state: restarted
       enabled: yes
+
+   - name: start vault
+     become: no
+     shell:
+     cmd: "vault -autocomplete-install"
