@@ -9,7 +9,7 @@ listener "tcp" {
 storage "consul" {
   address = "127.0.0.1:8500"
   path    = "vault-data/"
-  token   = "{{ agenttoken }}"
+  token   = "{{ agenttoken.SecretID }}"
   ha_enabled = "true"
 }
 
