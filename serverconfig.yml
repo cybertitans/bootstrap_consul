@@ -8,8 +8,8 @@
   - name: Include task list in play only if the condition is true
     include: tasks/installconsul.yml
 
-# consul keygen 32-bytes, Base64 encoded
-  - name: Create a new keygen using shell module
+# Create consul keygen 32-bytes, Base64 encoded
+  - name: Create new encrytion keygen using shell module
     shell: 'consul keygen'
     run_once: true
     register: keygen
@@ -26,27 +26,27 @@
     run_once: true
 
 # Copy config.json template file to server
-  - name: Copy config template
+  - name: Copy config.json template
     template:
       src: templates/config.json.j2
       dest: "/etc/consul.d/config.json"
 
 # Copy the consul.service file to server
-  - name: Copy config template
+  - name: Copy consul.service template
     copy:
      src: files/consul.service
      dest: "/etc/systemd/system/consul.service"
-    notify: start consul
+    notify: restart consul
+
+# Install autocomplete
+    - name: Install autocomplete
+      shell:
+       cmd: "consul -autocomplete-install"
 
 # Install autocomplete-install
   handlers:
-   - name: start consul
+   - name: restart consul
      service:
        name: consul
        state: restarted
        enabled: yes
-
-   - name: start consul
-     become: no
-     shell:
-      cmd: "consul -autocomplete-install"

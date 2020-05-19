@@ -8,7 +8,7 @@
      file: group_vars/encryption_keygen
      name: keygen
 
-  - name: Copy config template
+  - name: Copy config config.json (ACL enabled template)
     template:
       src: templates/config_acl.json.j2
       dest: "/etc/consul.d/config.json"
@@ -22,9 +22,10 @@
        state: restarted
 
 # Start bootstrap process and use one server (consuls1)
--  name: Start bootstrap
+-  name: Start bootstrap master_token
    hosts: consuls1
    tasks:
+
     - name: pause to allow the cluster to come up
       pause:
        seconds: 20
@@ -110,7 +111,7 @@
        consul acl token update -id 00000000-0000-0000-0000-000000000002 -policy-name list-all-nodes -description "Anonymous Token - Can List Nodes"
        consul acl token update -id 00000000-0000-0000-0000-000000000002 --merge-policies -description "Anonymous Token - Can List Nodes" -policy-name service-consul-read
 
-# Update servers config.json with agent_token and reload
+# Update servers config.json with agent_token and reload service
 - hosts: cs
   become: yes
   tasks:
