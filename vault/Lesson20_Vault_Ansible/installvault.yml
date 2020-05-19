@@ -60,7 +60,7 @@
     become: no
     lineinfile:
       path: ~/.bashrc
-      line: export VAULT_ADDR=https://192.168.50.192:8200
+      line: export VAULT_ADDR=https://vault.askarta.local:8200
       create: yes
 
 # Vault -autocomplete-install
