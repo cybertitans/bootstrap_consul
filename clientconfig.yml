@@ -40,6 +40,6 @@
   handlers:
   - name: restart consul
     service:
-     name: consul
+     name: consul.service 
      state: restarted
      enabled: yes
