@@ -58,4 +58,4 @@
    - name: start vault
      become: no
      shell:
-     cmd: "vault -autocomplete-install"
+      cmd: "vault -autocomplete-install"
