@@ -80,16 +80,16 @@
     shell: "vault -autocomplete-install"
     when: release_version == yes
 # Initialize the cluster
-    - name: Initialize the cluster using shell module
-      become: no
-      host: consulclient1
-      shell: 'vault operator init'
-      run_once: true
-      register: vault-init
+  - name: Initialize the cluster using shell module
+    become: no
+    host: consulclient1
+    shell: 'vault operator init'
+    run_once: true
+    register: vault-init
 
-    - name: Print returned operator init json dictionary
-      debug:
-       var: vault-init.stdout
+  - name: Print returned operator init json dictionary
+    debug:
+     var: vault-init.stdout
 
     - name: copy the operator init output to a local file
       copy:
