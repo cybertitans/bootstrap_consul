@@ -1,4 +1,4 @@
 ---
 cert: "/etc/vault/certs.pem"
 privatekey: "/etc/vault/vaultkey.pem"
-agenttoken: "32d8bd7b-e589-c9d7-788b-f2d11d835b79"
+agenttoken: "{{ agenttoken }}"
