@@ -56,6 +56,12 @@
   - name: start vault
     shell: "update-ca-certificates"
 
+  - name: Add a line to a file if the file does not exist, without passing regexp
+    lineinfile:
+      path: ~/.bashrc
+      line: export VAULT_ADDR=https://192.168.50.192:8200
+      create: yes
+
 # Vault -autocomplete-install
   - name: start vault
     become: no
