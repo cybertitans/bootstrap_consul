@@ -1,4 +1,4 @@
-- name: Install Consul agents/clients
+- name: start consul agents/clients
   become: yes
   hosts: cc
 
@@ -22,6 +22,7 @@
     template:
       src: templates/agent_config_acl.json.j2
       dest: "/etc/consul.d/config.json"
+    notify: start consul
 
 # Copy the consul.service file to agents/clients
   - name: Copy config template
@@ -35,9 +36,17 @@
       name: consul
       state: restarted
       enabled: yes
-# Install autocomplete-install
+
+# start consul
   handlers:
-  - name: Install autocomplete-install
+  - name: start consul
+    service:
+     name: consul
+     state: restarted
+     enabled: yes
+
+# install autocomplete
+  - name: start consul
     become: no
     shell:
       cmd: "consul -autocomplete-install"
