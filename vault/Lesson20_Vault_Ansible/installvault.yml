@@ -82,7 +82,7 @@
 # Initialize the cluster
   - name: Initialize the cluster using shell module
     become: no
-     host: consulclient1
+     hosts: consulclient1
      shell: 'vault operator init'
     run_once: true
     register: vault-init
