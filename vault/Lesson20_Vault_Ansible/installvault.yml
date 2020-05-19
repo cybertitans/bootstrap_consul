@@ -1,6 +1,11 @@
 - name: Install vault servers
   become: yes
   hosts: cc
+  vars_prompt:
+
+  - name: "release_version"
+    prompt: "Do you want to initialize the cluster "
+    default: "no"
 
   tasks:
   - name: Include vars of agent_token into the 'agent_token'
@@ -73,6 +78,25 @@
   - name: start vault
     become: no
     shell: "vault -autocomplete-install"
+    when: release_version == yes
+# Initialize the cluster
+    - name: Initialize the cluster using shell module
+      become: no
+      host: consulclient1
+      shell: 'vault operator init'
+      run_once: true
+      register: vault-init
+
+    - name: Print returned operator init json dictionary
+      debug:
+       var: vault-init.stdout
+
+    - name: copy the operator init output to a local file
+      copy:
+       content: '{{ vault-init }}'
+       dest: "~/.vault-init"
+      delegate_to: localhost
+      run_once: true
 
 # Restart and enable vault service at boot up
   handlers:
