@@ -83,10 +83,10 @@
   - name: Initialize the cluster using shell module
     become: no
     hosts: consulclient1
-    shell: 'vault operator init'
-    run_once: true
-    when: release_version == yes
-    register: vault-init
+     shell: 'vault operator init'
+     run_once: true
+     when: release_version == yes
+     register: vault-init
 
   - name: Print returned operator init json dictionary
     debug:
