@@ -127,10 +127,10 @@
       src: templates/config_acl_agenttoken.json.j2
       dest: "/etc/consul.d/config.json"
       force: yes
-    notify: reload consul
+    notify: restart consul
 
   handlers:
-    - name: reload consul
+    - name: restart consul
       service:
        name: consul
        state: restarted
