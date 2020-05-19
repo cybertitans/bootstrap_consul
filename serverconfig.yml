@@ -40,8 +40,7 @@
 
 # Install autocomplete
   - name: Install autocomplete
-    shell:
-      cmd: "consul -autocomplete-install"
+    shell: "consul -autocomplete-install"
 
 # Install autocomplete-install
   handlers:

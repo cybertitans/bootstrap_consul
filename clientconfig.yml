@@ -33,8 +33,7 @@
 
 # Install autocomplete
   - name: Install autocomplete
-    shell:
-      cmd: "consul -autocomplete-install"
+    shell: "consul -autocomplete-install"
 
 #Re start consul
   handlers:
