@@ -43,23 +43,22 @@
      - { src: 'files/certs.pem', dest: '/etc/vault/certs.pem'}
      - { src: 'files/vaultkey.pem', dest: '/etc/vault/vaultkey.pem'}
      - { src: 'files/vault_1.4.1_linux_amd64', dest: '/usr/bin/vault' }
-    notify: start vault
+    notify: restart vault
 
   - name: Copy config.json to servers
     template:
      src: templates/config.json.j2
      dest: "/etc/vault/config.json"
-    notify: start vault
+    notify: restart vault
 
-#Restart and enable vault service at boot up
+  - name: start vault
+    become: no
+    shell: "vault -autocomplete-install"
+
+# Restart and enable vault service at boot up
   handlers:
-   - name: start vault
+   - name: restart vault
      service:
       name: vault.service
       state: restarted
       enabled: yes
-
-   - name: start vault
-     become: no
-     shell:
-      cmd: "vault -autocomplete-install"
