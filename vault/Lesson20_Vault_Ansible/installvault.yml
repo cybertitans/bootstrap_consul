@@ -43,7 +43,7 @@
      - { src: 'files/certs.pem', dest: '/etc/vault/certs.pem'}
      - { src: 'files/vaultkey.pem', dest: '/etc/vault/vaultkey.pem'}
      - { src: 'files/vault_1.4.1_linux_amd64', dest: '/usr/bin/vault' }
-     - { src: 'files/vault-askarta-local-chain.pem', dest: '/etc/ca-certificates/askarta-pub.pem' }
+     - { src: 'files/vault-askarta-local-chain.pem', dest: ' /etc/ssl/certs/askarta-pub.pem' }
     notify: restart vault
 
   - name: Copy config.json to servers
