@@ -63,6 +63,13 @@
       line: export VAULT_ADDR=https://vault.askarta.local:8200
       create: yes
 
+  - name: Add a line to a file if the file does not exist, without passing regexp
+    lineinfile:
+      path: /etc/hosts
+      line: {{ ansible_default_ipv4.address }} vault.askarta.local
+      create: yes
+
+
 # Vault -autocomplete-install
   - name: start vault
     become: no
