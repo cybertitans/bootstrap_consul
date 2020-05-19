@@ -57,6 +57,7 @@
     shell: "update-ca-certificates"
 
   - name: Add a line to a file if the file does not exist, without passing regexp
+    become: no
     lineinfile:
       path: ~/.bashrc
       line: export VAULT_ADDR=https://192.168.50.192:8200
