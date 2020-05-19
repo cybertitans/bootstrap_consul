@@ -4,7 +4,7 @@
   vars_prompt:
 
   - name: "release_version"
-    prompt: "Do you want to initialize the cluster "
+    prompt: "Do you want to initialize the cluster? "
     default: "no"
 
   tasks:
@@ -83,8 +83,7 @@
   - name: Initialize the cluster using shell module
     become: no
     hosts: consulclient1
-     shell: 'vault operator init'
-     run_once: true
+    shell: 'vault operator init'
     when: release_version == yes
     register: vault-init
 
