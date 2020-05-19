@@ -85,8 +85,8 @@
     hosts: consulclient1
      shell: 'vault operator init'
      run_once: true
-     when: release_version == yes
-     register: vault-init
+    when: release_version == yes
+    register: vault-init
 
   - name: Print returned operator init json dictionary
     debug:
