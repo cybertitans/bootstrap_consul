@@ -1,4 +1,4 @@
 {
   "Name": "agent-policy",
-   "Rules": "node_prefix \"\" { policy = \"read\" } service_prefix \"\" { policy = \"read\" } key_prefix \"\" { policy = \"read\" } agent_prefix \"\" { policy = \"read\" } session_prefix \"\" { policy = \"read\" }"
+   "Rules": "node_prefix \"\" { policy = \"write\" } service_prefix \"\" { policy = \"write\" } key_prefix \"\" { policy = \"write\" } agent_prefix \"\" { policy = \"write\" } session_prefix \"\" { policy = \"write\" }"
 }
