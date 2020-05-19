@@ -39,9 +39,9 @@
     notify: restart consul
 
 # Install autocomplete
-    - name: Install autocomplete
-      shell:
-       cmd: "consul -autocomplete-install"
+  - name: Install autocomplete
+    shell:
+      cmd: "consul -autocomplete-install"
 
 # Install autocomplete-install
   handlers:
