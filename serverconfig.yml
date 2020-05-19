@@ -36,17 +36,17 @@
     copy:
      src: files/consul.service
      dest: "/etc/systemd/system/consul.service"
-
-# start consul
-  - name:  Start consul
-    service:
-      name: consul
-      state: started
-      enabled: yes
+    notify: start consul
 
 # Install autocomplete-install
   handlers:
-   - name: Install autocomplete-install
+   - name: start consul
+     service:
+       name: consul
+       state: restarted
+       enabled: yes
+
+   - name: start consul
      become: no
      shell:
       cmd: "consul -autocomplete-install"
