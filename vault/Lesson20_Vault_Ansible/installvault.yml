@@ -3,6 +3,10 @@
   hosts: cc
 
   tasks:
+  - name: Include vars of agent_token into the 'agent_token'
+    include_vars:
+     file: "~/.agent_token"
+     name: agenttoken
 
 # Create vault user and group
   - name: Add group for vault
