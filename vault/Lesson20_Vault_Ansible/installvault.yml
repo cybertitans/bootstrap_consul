@@ -55,8 +55,8 @@
     template:
      src: templates/config.json.j2
      dest: "/etc/vault/config.json"
-     notify: restart vault
-    
+    notify: restart vault
+
 # Update trusted root certificates
   - name: start vault
     shell: "update-ca-certificates"
