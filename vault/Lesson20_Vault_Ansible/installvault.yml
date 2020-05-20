@@ -88,11 +88,11 @@
 
 - name: Print returned vault-init json dictionary
   debug:
-   var: vault-init.stdout
+   var: vault_init.stdout
 
-- name: copy the vault-init output to a local file
+- name: copy the vault_init output to a local file
   copy:
-   content: '{{ keygen }}'
+   content: '{{ vault_init }}'
    dest: "~/.vault-init"
   delegate_to: localhost
   run_once: true
