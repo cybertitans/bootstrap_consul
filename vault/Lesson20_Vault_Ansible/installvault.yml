@@ -97,12 +97,12 @@
 
   - name: Print returned vault-init json dictionary
     debug:
-     var: vault_init
+     var: vault_init.stdout_lines
     run_once: true
 
   - name: copy the vault_init output to a local file
     copy:
-     content: '{{ vault_init }}'
+     content: '{{ vault_init.stdout_lines }}'
      dest: "~/.vault_init"
     delegate_to: localhost
     run_once: true
