@@ -102,7 +102,7 @@
   - name: copy the vault_init output to a local file
     copy:
      content: '{{ vault_init }}'
-     dest: "~/.vault-init"
+     dest: "~/.vault_init"
     delegate_to: localhost
     run_once: true
 
