@@ -97,7 +97,7 @@
 
   - name: Print returned vault-init json dictionary
     debug:
-     var: vault_init.stdout
+     var: vault_init
 
   - name: copy the vault_init output to a local file
     copy:
