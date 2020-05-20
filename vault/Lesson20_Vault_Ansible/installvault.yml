@@ -84,7 +84,7 @@
   - name: Initialize the cluster using shell module
     shell: 'vault operator init'
     register: vault-init
-    when: release_version != no
+    when: release_version is yes
 
 # Restart and enable vault service at boot up
   handlers:
