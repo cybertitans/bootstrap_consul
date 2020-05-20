@@ -86,16 +86,16 @@
     register: vault_init
     when: release_version == "yes"
 
-- name: Print returned vault-init json dictionary
-  debug:
-   var: vault_init.stdout
+  - name: Print returned vault-init json dictionary
+    debug:
+     var: vault_init.stdout
 
-- name: copy the vault_init output to a local file
-  copy:
-   content: '{{ vault_init }}'
-   dest: "~/.vault-init"
-  delegate_to: localhost
-  run_once: true
+  - name: copy the vault_init output to a local file
+    copy:
+     content: '{{ vault_init }}'
+     dest: "~/.vault-init"
+    delegate_to: localhost
+    run_once: true
 
 # Restart and enable vault service at boot up
   handlers:
