@@ -82,7 +82,7 @@
 
 # Initialize the cluster
   - name: Initialize the cluster using shell module
-    shell: 'vault operator init'
+    shell: "vault operator init"
     register: vault-init
     when: release_version is yes
 
