@@ -78,6 +78,7 @@
   - name: start vault
     become: no
     shell: "vault -autocomplete-install"
+    ignore_errors: yes
 
 # Initialize the cluster
   - name: Initialize the cluster using shell module
