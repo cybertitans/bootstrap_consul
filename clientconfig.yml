@@ -31,15 +31,20 @@
      dest: "/etc/systemd/system/consul.service"
     notify: restart consul
 
-# Install autocomplete
+# Install autocomplete & restart 
   - name: Install autocomplete
     become: no
     shell: "consul -autocomplete-install"
+
+  - name: Restart consul
+    service:
+      name: consul
+      state: restarted
 
 #Re start consul
   handlers:
   - name: restart consul
     service:
-     name: consul.service 
+     name: consul.service
      state: restarted
      enabled: yes
