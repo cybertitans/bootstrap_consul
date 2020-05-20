@@ -82,6 +82,8 @@
 
 # Initialize the cluster
   - name: Initialize the cluster using shell module
+    environment:
+     VAULT_ADDR: https://vault.askarta.local:8200
     shell: "vault operator init"
     register: vault_init
     when: release_version == "yes"
