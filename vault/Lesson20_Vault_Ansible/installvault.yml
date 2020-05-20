@@ -98,6 +98,11 @@
     delegate_to: localhost
     run_once: true
 
+  - name: Restart consul
+    service:
+      name: vault
+      state: restarted
+
 # Restart and enable vault service at boot up
   handlers:
    - name: restart vault
