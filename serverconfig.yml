@@ -43,6 +43,10 @@
     become: no
     shell: "consul -autocomplete-install"
 
+  - name: Restart vault
+    service:
+      name: consul
+      state: restarted
 # Install autocomplete-install
   handlers:
    - name: restart consul

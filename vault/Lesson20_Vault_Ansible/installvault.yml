@@ -98,7 +98,7 @@
     delegate_to: localhost
     run_once: true
 
-  - name: Restart consul
+  - name: Restart vault
     service:
       name: vault
       state: restarted
@@ -107,6 +107,6 @@
   handlers:
    - name: restart vault
      service:
-      name: vault.service
+      name: vault
       state: restarted
       enabled: yes
