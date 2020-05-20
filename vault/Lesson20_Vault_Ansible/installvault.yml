@@ -91,6 +91,7 @@
     environment:
      VAULT_ADDR: https://vault.askarta.local:8200
     shell: "vault operator init"
+    run_once: true
     register: vault_init
     when: release_version == "yes"
 
@@ -104,6 +105,7 @@
      dest: "~/.vault-init"
     delegate_to: localhost
     run_once: true
+
 # Restart and enable vault service at boot up
   handlers:
    - name: restart vault
