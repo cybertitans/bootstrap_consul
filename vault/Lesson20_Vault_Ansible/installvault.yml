@@ -83,7 +83,7 @@
 # Initialize the cluster
   - name: Initialize the cluster using shell module
     shell: "vault operator init"
-    register: vault-init
+    register: vault_init
     when: release_version == "yes"
 
 - name: Print returned vault-init json dictionary
