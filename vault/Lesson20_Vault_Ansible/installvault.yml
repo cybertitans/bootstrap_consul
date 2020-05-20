@@ -79,6 +79,13 @@
     shell: "vault -autocomplete-install"
     ignore_errors: yes
 
+# Restart vault
+
+  - name: Restart vault
+    service:
+      name: vault
+      state: restarted
+
 # Initialize the cluster
   - name: Initialize the cluster using shell module
     environment:
@@ -97,12 +104,6 @@
      dest: "~/.vault-init"
     delegate_to: localhost
     run_once: true
-
-  - name: Restart vault
-    service:
-      name: vault
-      state: restarted
-
 # Restart and enable vault service at boot up
   handlers:
    - name: restart vault
