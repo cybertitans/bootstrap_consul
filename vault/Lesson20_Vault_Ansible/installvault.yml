@@ -81,20 +81,9 @@
 
 # Initialize the cluster
   - name: Initialize the cluster using shell module
-    become: no
     shell: 'vault operator init'
     register: vault-init
-
-  - name: Print returned operator init json dictionary
-    debug:
-     var: vault-init.stdout
-
-  - name: copy the operator init output to a local file
-    copy:
-      content: '{{ vault-init }}'
-      dest: "~/.vault-init"
-    delegate_to: localhost
-    run_once: true
+    when: release_version == yes
 
 # Restart and enable vault service at boot up
   handlers:
