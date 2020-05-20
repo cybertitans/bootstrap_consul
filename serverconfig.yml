@@ -47,6 +47,7 @@
     service:
       name: consul
       state: restarted
+
 # Install autocomplete-install
   handlers:
    - name: restart consul
