@@ -42,6 +42,7 @@
   - name: Install autocomplete
     become: no
     shell: "consul -autocomplete-install"
+    ignore_errors: yes
 
   - name: Restart vault
     service:
