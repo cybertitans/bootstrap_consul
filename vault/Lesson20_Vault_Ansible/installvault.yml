@@ -3,12 +3,12 @@
   hosts: cc
   vars_prompt:
 
-  - name: "release_version"
-    prompt: "Do you want to initialize the cluster? "
+  - name: "initialize_cluster"
+    prompt: "Do you want to initialize the cluster [Yes/No]? [No] "
     default: "no"
 
   tasks:
-  - name: Include vars of agent_token into the 'agent_token'
+  - name: Include vars of ACL agent_token into the 'agent_token'
     include_vars:
      file: "~/.agent_token"
      name: agenttoken
@@ -47,17 +47,17 @@
      - { src: 'files/vault.service',  dest: '/etc/systemd/system/vault.service' }
      - { src: 'files/certs.pem', dest: '/etc/vault/certs.pem'}
      - { src: 'files/vaultkey.pem', dest: '/etc/vault/vaultkey.pem'}
-     - { src: 'files/vault_1.4.1_linux_amd64', dest: '/usr/bin/vault' }
-     - { src: 'files/vault-askarta-local-chain.pem', dest: '/etc/ssl/certs/askarta-pub.pem' }
+     - { src: 'files/vault_1.4.2_linux_amd64', dest: '/usr/bin/vault' }
+     - { src: 'files/vault-askarta-local-chain.pem', dest: '/etc/ssl/certs/askarta-pub.crt' }
     notify: restart vault
 
-  - name: Copy config.json to servers
+  - name: Copy vault config.json to servers
     template:
      src: templates/config.json.j2
      dest: "/etc/vault/config.json"
 
 # Update trusted root certificates
-  - name: start vault
+  - name: Update trusted root certificates
     shell: "update-ca-certificates"
 
   - name: Add env export to .bashrc file
@@ -67,14 +67,15 @@
       line: export VAULT_ADDR=https://vault.askarta.local:8200
       create: yes
 
-  - name: Update hosts file with env export
+# Update hosts file if DNS is not used to resolve clusters FQDN
+  - name: Update hosts file
     lineinfile:
       path: /etc/hosts
       line: "{{ ansible_default_ipv4.address }} vault.askarta.local"
       create: yes
 
 # Vault -autocomplete-install
-  - name: start vault
+  - name: Install autocomplete-install
     become: no
     shell: "vault -autocomplete-install"
     ignore_errors: yes
@@ -85,20 +86,20 @@
       name: vault
       state: restarted
 
-# Initialize the cluster
+# Initialize the cluster if the initialize_cluster value is yes
   - name: Initialize the cluster using shell module
     environment:
      VAULT_ADDR: https://vault.askarta.local:8200
     shell: "vault operator init"
     run_once: true
     register: vault_init
-    when: release_version == "yes"
+    when: initialize_cluster == "yes"
 
   - name: Print returned vault_init json dictionary
     debug:
      var: vault_init.stdout_lines
     run_once: true
-
+# Copy cluster tokens to file (make sure you secure these)
   - name: copy the vault_init output to a local file
     become: no
     copy:
