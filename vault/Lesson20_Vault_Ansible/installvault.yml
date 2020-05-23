@@ -48,7 +48,7 @@
      - { src: 'files/certs.pem', dest: '/etc/vault/certs.pem'}
      - { src: 'files/vaultkey.pem', dest: '/etc/vault/vaultkey.pem'}
      - { src: 'files/vault_1.4.2_linux_amd64', dest: '/usr/bin/vault' }
-      - { src: '~/vault/ldap2021.pem', dest: '~/vault/ldap2021.pem' }
+     - { src: '~/vault/ldap2021.pem', dest: '~/vault/ldap2021.pem' }
      - { src: 'files/askarta-ASKARTAPKI-CA01-CA.crt', dest: '/usr/local/share/ca-certificates/askarta-ASKARTAPKI-CA01-CA.crt' }
     notify: restart vault
 
