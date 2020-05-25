@@ -49,7 +49,7 @@
      - { src: 'files/vaultkey.pem', dest: '/etc/vault/vaultkey.pem'}
      - { src: 'files/vault_1.4.2_linux_amd64', dest: '/usr/bin/vault' }
      - { src: 'files/admin_policy.hcl', dest: '/etc/vault/admin_policy.hcl' }
-     - { src: '~/vault/ldap2021.pem', dest: '~/ldap2021.pem' }
+     - { src: '~/vault/ldap2021.pem', dest: '/etc/vault/ldap2021.pem' }
      - { src: 'files/askarta-ASKARTAPKI-CA01-CA.crt', dest: '/usr/local/share/ca-certificates/askarta-ASKARTAPKI-CA01-CA.crt' }
     notify: restart vault
 
