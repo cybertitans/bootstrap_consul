@@ -11,5 +11,9 @@
 
     - name: Print returned vault_status json dictionary
       debug:
-        var: vault_status_result.stdout_lines 
-      run_once: true
+        var: vault_status_result.stdout_lines
+        msg: "{{item.key}}: {{item.value}}"
+      with_dict: {a: 1, b: 2, c: 3}
+
+
+    
