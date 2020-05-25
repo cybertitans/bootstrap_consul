@@ -12,7 +12,7 @@
 
     - name: Print returned vault_status json dictionary
       debug:
-        var: vault_status_result.content
+        var: vault_status_result.stdout
 
 
 
