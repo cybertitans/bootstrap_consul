@@ -8,3 +8,8 @@
       command: vault status
       register: vault_status_result
       ignore_errors: True
+
+    - name: Print returned vault_status json dictionary
+      debug:
+        var: vault_status_result.stdout_lines
+      run_once: true
