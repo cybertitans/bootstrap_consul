@@ -12,7 +12,7 @@
     - name: fail if vault is sealed
       fail:
         msg: "Vault is sealed"
-      when: "'FAILED' in vault_status_result.stderr"
+      when: "'FAILED' in vault_status_result.content"
 
 
     - name: Print returned vault_status json dictionary
