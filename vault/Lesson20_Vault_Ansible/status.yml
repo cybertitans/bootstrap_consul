@@ -12,4 +12,4 @@
     - name: fail if vault is sealed
       fail:
         msg: "Vault is sealed"
-      when: "'FAILED' in vault_status_result"
+      when: "'FAILED' in vault_status_result.stdout_lines"
