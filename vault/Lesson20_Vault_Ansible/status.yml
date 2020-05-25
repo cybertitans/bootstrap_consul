@@ -11,6 +11,11 @@
 
     - name: Print returned vault_status json dictionary
       debug:
-        msg: "FAILED - Vault sealed"
+        msg: "FAILED - Vault sealed, please unseal it then run this again"
       when: vault_status_result is failed
+      run_once: true
+
+    - debug:
+        msg: "Success - Vault unsealed"
+      when:  vault_status_result is success
       run_once: true
