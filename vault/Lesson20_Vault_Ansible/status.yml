@@ -13,7 +13,4 @@
       debug:
         var: vault_status_result.stdout_lines
         msg: "{{item.key}}: {{item.value}}"
-      with_dict: {a: 1, b: 2, c: 3}
-
-
-    
+      with_dict: {Sealed: false}
