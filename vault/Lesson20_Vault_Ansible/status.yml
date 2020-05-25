@@ -1,0 +1,8 @@
+- name: Enable mysql secrets engine
+  hosts: consulclient1
+  tasks:
+
+    - name: Check if java is installed
+      command: vault status
+      register: vault_status_result
+      ignore_errors: True
