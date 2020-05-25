@@ -7,4 +7,4 @@
         VAULT_ADDR: https://vault.askarta.local:8200
       command: vault status
       register: vault_status_result
-      failed_when: "'FAILED' in vault_status_result.stderr"
+      failed_when: "'FAILED' in vault_status_result"
