@@ -11,5 +11,5 @@
 
     - name: Print returned vault_status json dictionary
       debug:
-         msg: "{{ item }}"
+        var: vault_status_result.stderr
       run_once: true
