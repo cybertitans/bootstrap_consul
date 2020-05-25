@@ -3,6 +3,8 @@
   tasks:
 
     - name: Check if java is installed
+      environment:
+        VAULT_ADDR: https://vault.askarta.local:8200
       command: vault status
       register: vault_status_result
       ignore_errors: True
