@@ -21,6 +21,6 @@
       when: vault_status_result is FAILED
 
 
-   - debug:
-      msg: "Success - Vault unsealed"
-     when:  vault_status_result is success
+    - debug:
+       msg: "Success - Vault unsealed"
+      when:  vault_status_result is success
