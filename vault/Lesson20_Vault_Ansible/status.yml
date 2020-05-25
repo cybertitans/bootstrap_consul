@@ -9,11 +9,6 @@
       register: vault_status_result
       ignore_errors: True
 
-    - name: fail if vault is sealed
-      fail:
-        msg: "Vault is sealed"
-      when: "'FAILED' in vault_status_result.stderr"
-
 
     - name: Print returned vault_status json dictionary
       fail:
