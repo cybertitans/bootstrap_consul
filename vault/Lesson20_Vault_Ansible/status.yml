@@ -11,5 +11,6 @@
 
     - name: Print returned vault_status json dictionary
       debug:
-         msg: {{ item }}
+         msg: "{{ item }}"
+      with_lines: vault status
       run_once: true
