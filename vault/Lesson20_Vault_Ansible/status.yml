@@ -13,7 +13,7 @@
     - name: Print returned vault_status json dictionary
       debug:
         var: vault_status_result.stdout_lines
-         msg: "FAILED - Vault sealed, please unseal it then run this again"
+        msg: "FAILED - Vault sealed, please unseal it then run this again"
       when: vault_status_result.stdout_lines is FAILED
 
 
