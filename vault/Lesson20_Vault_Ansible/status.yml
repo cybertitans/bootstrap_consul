@@ -11,5 +11,5 @@
 
     - name: Print returned vault_status json dictionary
       debug:
-        var: vault_status_result
+        var: vault_status_result.stdout_lines.Sealed 
       run_once: true
