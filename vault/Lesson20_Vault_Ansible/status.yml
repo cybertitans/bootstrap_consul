@@ -11,5 +11,5 @@
 
     - name: Print returned vault_status json dictionary
       debug:
-        
-      with_dict: {Sealed: false}
+        msg: "{{item.key}}: {{item.value}}"
+  
