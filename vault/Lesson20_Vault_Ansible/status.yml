@@ -2,7 +2,7 @@
   hosts: consulclient1
   tasks:
 
-    - name: Check if java is installed
+    - name: Check if Vault is unsealed
       environment:
         VAULT_ADDR: https://vault.askarta.local:8200
       command: vault status
@@ -11,5 +11,5 @@
 
     - name: Print returned vault_status json dictionary
       debug:
-        msg: "{{item.key}}: {{item.value}}"
-      with_dict: {Sealed : false}
+        var: vault_status_result.stdout_lines
+      run_once: true
