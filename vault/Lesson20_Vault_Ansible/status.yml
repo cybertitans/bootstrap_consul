@@ -7,12 +7,13 @@
         VAULT_ADDR: https://vault.askarta.local:8200
       command: vault status
       register: vault_status_result
-      ignore_errors: False
+      ignore_errors: True
 
     - name: Print returned vault_status json dictionary
       debug:
         msg: "FAILED - Vault sealed, please unseal it then run this again"
       when: vault_status_result is FAILED
+
 
     - debug:
         msg: "Success - Vault unsealed"
