@@ -13,7 +13,7 @@
     - name: Print returned vault_status json dictionary
       debug:
         var: vault_status_result.stdout_lines
-      when: vault_status_result.stdout_lines is FAILED
+      
 
 
     - debug:
