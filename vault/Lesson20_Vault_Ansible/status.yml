@@ -15,12 +15,12 @@
       when: "'FAILED' in vault_status_result.stderr"
 
 
-   - name: Print returned vault_status json dictionary
-     fail:
-      msg: "FAILED - Vault sealed, please unseal it then run this again"
-     when: vault_status_result is FAILED
+    - name: Print returned vault_status json dictionary
+      fail:
+       msg: "FAILED - Vault sealed, please unseal it then run this again"
+      when: vault_status_result is FAILED
 
 
    - debug:
       msg: "Success - Vault unsealed"
-    when:  vault_status_result is success
+     when:  vault_status_result is success
