@@ -9,7 +9,7 @@
       register: vault_status_result
       ignore_errors: True
 
-    - name: fail the play if the previous command did not succeed
+    - name: fail if vault is sealed
       fail:
         msg: "Vault is sealed"
       when: "'FAILED' in vault_status_result.stderr"
