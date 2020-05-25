@@ -9,7 +9,13 @@
       register: vault_status_result
       ignore_errors: True
 
-    - name: fail if vault is sealed
-      fail:
-        msg: "Vault is sealed"
-      when: "'FAILED' in vault_status_result"
+
+      - name: Print returned vault_status json dictionary
+        debug:
+         msg: "FAILED - Vault sealed, please unseal it then run this again"
+        when: "vault_status_result is 'FAILED'"
+
+
+      - debug:
+         msg: "Success - Vault unsealed"
+        when:  vault_status_result is success
