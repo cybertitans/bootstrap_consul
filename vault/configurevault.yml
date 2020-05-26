@@ -45,7 +45,7 @@
      - vault write mysql/config/connection connection_url="root:root@tcp(192.168.50.180:3306)/"
      - vault write mysql/config/lease lease=5m lease_max=12h
      - vault write {%raw%} mysql/roles/readonly sql="CREATE USER '{{name}}'@'%' IDENTIFIED BY '{{password}}';GRANT SELECT ON *.* TO '{{name}}'@'%';"{%endraw%}
-     - vault write {%raw%} mysql/roles/admin sql="CREATE USER '\{\{name\}\}'@'%' IDENTIFIED BY '\{\{password\}\}';GRANT ALL ON *.* TO '\{\{name\}\}'@'%';"{%endraw%}
+     - vault write {%raw%} mysql/roles/admin sql="CREATE USER '{{name}}'@'%' IDENTIFIED BY '{{password}}';GRANT ALL ON *.* TO '{{name}}'@'%';"{%endraw%}
 
 # Enable transit secrets engine
      - vault secrets enable transit
