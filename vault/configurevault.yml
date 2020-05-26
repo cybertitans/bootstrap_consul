@@ -37,7 +37,7 @@
    - name: Enable mysql secrets engine
      environment:
        VAULT_ADDR: "{{ vault_add }}"
-       VAULT_TOKEN: "{{ vault_token }}"
+       VAULT_TOKEN: s.rAWYos8uTPiCrEzEFitma1dp
      command: "{{ item }}"
      with_items:
 # Enable mysql secrets engine for temp admin & readonly accounts
