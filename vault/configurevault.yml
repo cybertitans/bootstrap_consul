@@ -29,9 +29,9 @@
      ignore_errors: True
 
    - name: Print returned vault_status_results and fail if sealed
-     debug:
+     fail:
       msg: "FAILED! - Please unseal Vault and then rerun this playbook"
-     failed_when: vault_status_result.failed is true
+     when: vault_status_result.failed is true
 
 # Enable mysql secrets engine
    - name: Enable mysql secrets engine
