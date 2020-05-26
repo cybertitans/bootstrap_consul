@@ -16,9 +16,8 @@
      register: vault_token
      delegate_to: localhost
 
-   - name: Print returned vault_status_results and fail if sealed
-     debug:
-      msg: "{{vault_token.stdout}}"
+   - set_fact:
+      string_to_echo: "{{ vault_token }}"
 
 # Check if Vault is sealed or not before running the playbook
    - name: Check if Vault is unsealed
