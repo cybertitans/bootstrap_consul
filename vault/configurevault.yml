@@ -22,7 +22,7 @@
 # Check if Vault is sealed or not before running the playbook
    - name: Check if Vault is unsealed
      environment:
-      VAULT_ADDR: {{ vault_add }}
+      VAULT_ADDR: "{{ vault_add }}"
      command: vault status
      register: vault_status_result
      ignore_errors: True
