@@ -35,6 +35,7 @@
 # Enable mysql secrets engine
    - name: Enable mysql secrets engine
      environment:
+       VAULT_ADDR: "{{ vault_add }}"
        VAULT_TOKEN: "{{ vault_token }}"
      command: "{{ item }}"
      with_items:
