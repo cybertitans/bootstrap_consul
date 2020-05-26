@@ -9,6 +9,16 @@
   hosts: consulclient1
 
   tasks:
+# Load the master_token created in the build/init process into "vault_token"
+   - name: Load the master_token created in the build/init process
+     shell: cat ~/.vault_init | grep -e '"Initial Root Token:' | gawk -F '"' '{print $14}' | awk '{print $4}'
+     register: vault_token
+     delegate_to: localhost
+
+   - name: Print returned vault_status_results and fail if sealed
+     debug:
+     msg: "{{vault_token.stdout}}"
+
 # Check if Vault is sealed or not before running the playbook
    - name: Check if Vault is unsealed
      environment:
@@ -24,6 +34,7 @@
 
 # Enable mysql secrets engine
    - name: Enable mysql secrets engine
+     environment:
       VAULT_TOKEN: {{ vault_token }}
      command: "{{ item }}"
      with_items:
