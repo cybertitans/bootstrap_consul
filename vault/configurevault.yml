@@ -33,7 +33,7 @@
       msg: "FAILED! - Please unseal Vault and then rerun this playbook"
      when: vault_status_result.failed is true
 
-# Enable mysql secrets engine
+# Enable mysql secrets engine 
    - name: Enable mysql secrets engine
      environment:
        VAULT_ADDR: "{{ vault_add }}"
