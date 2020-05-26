@@ -12,12 +12,13 @@
 # Load the master_token created in the build/init process into "vault_token"
    - name: Load the master_token created in the build/init process
      become: no
-     shell: cat /home/saeed/.vault_init | grep -e 'Initial Root Token:' | gawk -F '"' '{print $14}' | awk '{print $4}'
+     shell: cat ~/.vault_init | grep -e 'Initial Root Token:' | gawk -F '"' '{print $14}' | awk '{print $4}'
      register: vault_token
      delegate_to: localhost
 
-   - set_fact:
-      string_to_echo: "{{ vault_token }}"
+   - name: Print returned vault_status_results and fail if sealed
+     debug:
+      var: vault_token.stdout
 
 # Check if Vault is sealed or not before running the playbook
    - name: Check if Vault is unsealed
@@ -36,7 +37,7 @@
    - name: Enable mysql secrets engine
      environment:
        VAULT_ADDR: "{{ vault_add }}"
-       VAULT_TOKEN: "{{ vault_token }}"
+       VAULT_TOKEN: "{{ vault_token.stdout }}"
      command: "{{ item }}"
      with_items:
 # Enable mysql secrets engine for temp admin & readonly accounts
