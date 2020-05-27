@@ -52,7 +52,7 @@
      - vault secrets enable transit
 # Create a named encryption key for transit secret engine
      - vault write -f transit/keys/enc-key
-     
+
 # Enable LDAP and create groups plus policies (dev and admin)
      - vault auth enable ldap
      - vault policy write admin_policy /etc/vault/admin_policy.hcl
@@ -63,3 +63,10 @@
           userattr=sAMAccountName userdn="OU=HO,DC=askarta,DC=local"
           groupdn="OU=HO,DC=askarta,DC=local" use_token_groups=true
           certificate=@/etc/vault/ldap2021.pem
+
+# SSH Key Signing & Role Configuration
+     - vault secrets enable -path=ssh-key-signer ssh
+     - vault write ssh-key-signer/config/ca generate_signing_key=true
+     - cat files/appsuport-user-role.hcl | vault write ssh-client/roles/appsuport -
+     - cat files/ops-user-role.hcl | vault write ssh-client/roles/ops -
+     - vault read -field=public_key ssh-key-signer/config/ca > ~/.ssh/trusted-user-ca-key
