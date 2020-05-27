@@ -35,7 +35,7 @@
      when: vault_status_result.failed is true
 
 # Enable mysql secrets engine
-   - name: Enable mysql secrets engine
+   - name: Enable secrets engines (Mysql, LDAPS, Transit & SSH key Signing)
      environment:
        VAULT_ADDR: "{{ vault_add }}"
        VAULT_TOKEN: "{{ vault_token.stdout }}"
@@ -69,4 +69,4 @@
      - vault write ssh-key-signer/config/ca generate_signing_key=true
      - cat files/appsuport-user-role.hcl | vault write ssh-key-signer/roles/appsuport -
      - cat files/ops-user-role.hcl | vault write ssh-key-signer/roles/ops -
-     - vault read -field=public_key ssh-key-signer/config/ca > ~/.ssh/trusted-user-ca-key
+     - vault read -field=public_key ssh-key-signer/config/ca > ~/.ssh/trusted-user-ca-key 2>/dev/null
