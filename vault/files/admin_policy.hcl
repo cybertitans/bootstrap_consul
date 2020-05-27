@@ -6,7 +6,7 @@ path "secret/data/admin/*" {
   capabilities = ["create","read","delete","update","list"]
 }
 
-path "ssh-client/sign/*" {
+path "ssh-key-signer/sign/*" {
   capabilities = ["create","update"]
 }
 
@@ -30,7 +30,7 @@ path "cubbyhole/*" {
 	capabilities = ["deny"]
 }
 
-path "ssh-client/*" {
+path "ssh-key-signer/*" {
 	capabilities = ["create","read","delete","update","list"]
 }
 

@@ -6,7 +6,7 @@ path "secret/data/admin" {
   capabilities = ["deny"]
 }
 
-path "ssh-client/sign/*" {
+path "ssh-key-signer/sign/*" {
   capabilities = ["deny"]
 }
 
