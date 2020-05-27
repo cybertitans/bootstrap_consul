@@ -66,7 +66,7 @@
 
 # SSH Key Signing & Role Configuration
      - vault secrets enable -path=ssh-key-signer ssh
-     - "vault write ssh-key-signer/config/ca generate_signing_key=true" "&> ssh_public_key"
+     - vault write ssh-key-signer/config/ca generate_signing_key=true "&> ssh_public_key"
      - cat files/appsuport-user-role.hcl | vault write ssh-key-signer/roles/appsuport -
      - cat files/ops-user-role.hcl | vault write ssh-key-signer/roles/ops -
      - vault read -field=public_key ssh-key-signer/config/ca > ~/.ssh/trusted-user-ca-key
