@@ -40,6 +40,25 @@
        VAULT_ADDR: "{{ vault_add }}"
        VAULT_TOKEN: "{{ vault_token.stdout }}"
      command: "{{ item }}"
-     with_file:
-       - files/enablemysql.yml
-#
+     with_items:
+# Enable mysql secrets engine for temp admin & readonly accounts
+     - vault secrets enable mysql
+     - vault write mysql/config/connection connection_url="root:root@tcp(192.168.50.180:3306)/"
+     - vault write mysql/config/lease lease=5m lease_max=12h
+     - vault write {%raw%} mysql/roles/readonly sql="CREATE USER '{{name}}'@'%' IDENTIFIED BY '{{password}}';GRANT SELECT ON *.* TO '{{name}}'@'%';"{%endraw%}
+     - vault write {%raw%} mysql/roles/admin sql="CREATE USER '{{name}}'@'%' IDENTIFIED BY '{{password}}';GRANT ALL ON *.* TO '{{name}}'@'%';"{%endraw%}
+
+# Enable transit secrets engine
+     - vault secrets enable transit
+# Create a named encryption key for transit secret engine
+     - vault write -f transit/keys/enc-key
+# Enable LDAP and create groups plus policies (dev and admin)
+     - vault auth enable ldap
+     - vault policy write admin_policy /etc/vault/admin_policy.hcl
+     - vault write auth/ldap/groups/users policies=admin_policy
+     - vault policy write dev_policy /etc/vault/dev_policy.hcl
+     - vault write auth/ldap/groups/devteam policies=dev_policy
+     - vault write auth/ldap/config url="ldaps://askartadc01.askarta.local" upndomain="askarta.local"
+          userattr=sAMAccountName userdn="OU=HO,DC=askarta,DC=local"
+          groupdn="OU=HO,DC=askarta,DC=local" use_token_groups=true
+          certificate=@/etc/vault/ldap2021.pem
