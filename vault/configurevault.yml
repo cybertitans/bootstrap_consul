@@ -1,9 +1,9 @@
 # Vault must be installed, unsealed  and required files already uploaded
-# This playbook assumes vault is up/running. Useinstallvault.yml first.
+# This playbook assumes you used installvault.yml first & preloaded all required files.
 # It configures dynamic mysql secrets, & ldap
-# Creates basic policies for users/devteam ( in the example I'm using AD groups)
-# Also adds cert to trusted store
-# Select only one vault server as the target
+# Creates basic policies for users/devteam (AD groups are via DLAP)
+# Also adds cert to trusted store & for ldaps
+# Select only the primary vault server
 
 - name: Configure vault
   hosts: consulclient1
@@ -16,7 +16,7 @@
      register: vault_token
      delegate_to: localhost
 
-   - name: Print returned vault_status_results and fail if sealed
+   - name: Print returned vault_token and make token as var
      debug:
       var: vault_token.stdout
 
@@ -28,6 +28,7 @@
      register: vault_status_result
      ignore_errors: True
 
+# Fail if sealed
    - name: Print returned vault_status_results and fail if sealed
      fail:
       msg: "FAILED! - Please unseal Vault and then rerun this playbook"
@@ -40,12 +41,8 @@
        VAULT_TOKEN: "{{ vault_token.stdout }}"
      command: "{{ item }}"
      with_items:
-# Enable mysql secrets engine for temp admin & readonly accounts
-     - vault secrets enable mysql
-     - vault write mysql/config/connection connection_url="root:root@tcp(192.168.50.180:3306)/"
-     - vault write mysql/config/lease lease=5m lease_max=12h
-     - vault write {%raw%} mysql/roles/readonly sql="CREATE USER '{{name}}'@'%' IDENTIFIED BY '{{password}}';GRANT SELECT ON *.* TO '{{name}}'@'%';"{%endraw%}
-     - vault write {%raw%} mysql/roles/admin sql="CREATE USER '{{name}}'@'%' IDENTIFIED BY '{{password}}';GRANT ALL ON *.* TO '{{name}}'@'%';"{%endraw%}
+     - files/enablemysql.yml
+
 
 # Enable transit secrets engine
      - vault secrets enable transit
