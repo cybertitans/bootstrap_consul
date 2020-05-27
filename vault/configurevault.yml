@@ -40,6 +40,6 @@
        VAULT_ADDR: "{{ vault_add }}"
        VAULT_TOKEN: "{{ vault_token.stdout }}"
      command: "{{ item }}"
-     with_files:
+     with_file:
        - files/enablemysql.yml
 #
