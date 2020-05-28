@@ -56,6 +56,8 @@
      - { src: 'files/admin_policy.hcl', dest: '/etc/vault/admin_policy.hcl' }
      - { src: 'files/dev_policy.hcl', dest: '/etc/vault/dev_policy.hcl' }
      - { src: 'files/ldap2021.pem', dest: '/etc/vault/ldap2021.pem' }
+     - { src: 'files/appsuport-user-role.hcl', dest: '/etc/vault/appsuport-user-role.hcl' }
+     - { src: 'files/ops-user-role.hcl', dest: '/etc/vault/ops-user-role.hcl' }
      - { src: 'files/askarta-ASKARTAPKI-CA01-CA.crt', dest: '/usr/local/share/ca-certificates/askarta-ASKARTAPKI-CA01-CA.crt' }
     notify: restart vault
 
