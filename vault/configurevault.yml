@@ -84,10 +84,11 @@
 #   - name: Clean up and remove files that are no longer required
    - hosts: cc
      become: yes
-     file:
-      path: "{{ item }}"
-      state: absent
-     with_items:
+     tasks:
+      file:
+       path: "{{ item }}"
+       state: absent
+      with_items:
        - trusted-user-ca-keys.pem
        - /etc/vault/admin_policy.hcl
        - /etc/vault/dev_policy.hcl
