@@ -72,7 +72,6 @@
 
 # Download the pulic key and upload to all server you want to use this before
    - name: Download the pulic key
-     tasks:
-      - uri:
-        url: https://vault.askarta.local:8200/v1/ssh-key-signer/public_key
-        return_content: yes
+     uri:
+      url: https://vault.askarta.local:8200/v1/ssh-key-signer/public_key
+      return_content: yes
