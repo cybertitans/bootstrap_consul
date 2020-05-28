@@ -71,11 +71,25 @@
      - vault write ssh-key-signer/config/ca generate_signing_key=true
 
 # Download the pulic key and upload to all server you want to use this before
-- hosts: consulclient1 
-  tasks:
    - name: Download the pulic key
-     uri:
-      url: https://vault.askarta.local:8200/v1/ssh-key-signer/public_key
-      method: GET
-      return_content: yes
-      follow_redirects: yes
+     shell: curl https://vault.askarta.local:8200/v1/ssh-key-signer/public_key > trusted-user-ca-keys.pem
+
+   - name: Store file into /tmp/fetched/host.example.com/tmp/somefile
+     fetch:
+      src: trusted-user-ca-keys.pem
+      dest: ~/
+      flat: yes
+
+# Clean up and remove the files that are no longer required
+   - name: Clean up and remove files that are no longer required
+     become: yes
+     file:
+      path: "{{ item }}"
+      state: absent
+     with_items:
+       - trusted-user-ca-keys.pem
+       - /etc/vault/admin_policy.hcl
+       - /etc/vault/dev_policy.hcl
+       - /etc/vault/appsuport-user-role.hcl
+       - /etc/vault/ops-user-role.hcl
+       - /etc/vault/ldap2021.pem
