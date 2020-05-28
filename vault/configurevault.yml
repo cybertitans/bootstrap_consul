@@ -73,6 +73,6 @@
 
 # Download the pulic key and upload to all server you want to use this before
    - name: Download the pulic key
-     get_url:
+     uri:
        url: https://vault.askarta.local:8200/v1/ssh-key-signer/public_key
-       dest: trusted-user-ca-keys.pem
+       return_content: yes
