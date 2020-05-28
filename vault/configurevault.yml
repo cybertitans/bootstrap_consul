@@ -69,6 +69,8 @@
      - vault write ssh-key-signer/roles/appsuport @/etc/vault/appsuport-user-role.hcl
      - vault write ssh-key-signer/roles/ops @/etc/vault/ops-user-role.hcl
      - vault write ssh-key-signer/config/ca generate_signing_key=true
+     - vault read -field=public_key ssh-client-signer/config/ca > /etc/ssh/trusted-user-ca-keys.pem 2&>1 >
+
 # Download the pulic key and upload to all server you want to use this before
    - name: Download the pulic key
      get_url:
