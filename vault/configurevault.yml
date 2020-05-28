@@ -82,6 +82,7 @@
 
 # Clean up and remove the files that are no longer required
    - name: Clean up and remove files that are no longer required
+     hosts: cc
      become: yes
      file:
       path: "{{ item }}"
