@@ -69,4 +69,9 @@
      - vault write ssh-key-signer/roles/appsuport @/etc/vault/appsuport-user-role.hcl
      - vault write ssh-key-signer/roles/ops @/etc/vault/ops-user-role.hcl
      - vault write ssh-key-signer/config/ca generate_signing_key=true
-     - vault read -field=public_key ssh-key-signer/config/ca 
+     - vault read -field=public_key ssh-key-signer/config/ca
+# Download the pulic key and upload to all server you want to use this before
+   - name: Downlaod the pulic key
+     get_url:
+       url: https://vault.askarta.local:8200/v1/ssh-key-signer/public_key
+       dest: trusted-user-ca-keys.pem
