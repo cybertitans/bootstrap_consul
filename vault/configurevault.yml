@@ -74,4 +74,5 @@
    - name: Download the pulic key
      uri:
       url: https://vault.askarta.local:8200/v1/ssh-key-signer/public_key
+      method: GET
       return_content: yes
