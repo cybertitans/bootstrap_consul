@@ -28,7 +28,7 @@
   - name: Copy consul binary to the servers
     copy:
       src: files/consul/consul_1.7.2_linux_amd64
-      dest: /usr/bin
+      dest: /usr/bin/consul
       owner: root
       group: root
       mode: '0755'
