@@ -12,6 +12,15 @@
     prompt: "Do you want to initialize the cluster [Yes/No]? [No] "
     default: "no"
 
+# Update hosts file if DNS is not used to resolve clusters FQDN
+  - name: Update hosts file
+    lineinfile:
+      path: /etc/hosts
+      line: "{{ ansible_default_ipv4.address }} vault.askarta.local"
+      create: yes
+      when: ansible_hostname == consulsclient1
+
+
 # Load agent_token that was previously created by consul playbooks into agenttoken var.
   tasks:
   - name: Include vars of ACL agent_token into the 'agent_token'
