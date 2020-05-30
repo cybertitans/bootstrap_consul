@@ -1,6 +1,6 @@
 <H1>Vault installation</H1>
 
-#Steps
+# Steps
 
 ### Install --> Configure —> Start —> Initialise —> Unseal —>  Operate
 
