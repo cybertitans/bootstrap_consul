@@ -53,7 +53,7 @@
 # Create new policies for the consul agents, dns and to list nodes
     - name: Create required policies
       uri:
-       url: http://"{{ Primary_consul_server }}":8500/v1/acl/policy
+       url: "http://{{ Primary_consul_server }}:8500/v1/acl/policy"
        headers:
         X-Consul-Token: "{{ master_token.json.SecretID }}"
        method: PUT
