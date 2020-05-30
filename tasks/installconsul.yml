@@ -26,6 +26,6 @@
 
 # Copy consul binary to server
   - name: Copy consul binary to the servers
-    unarchive:
+    copy:
       src: "files/consul/consul_1.7.2_linux_amd64"
       dest: "/usr/bin"
