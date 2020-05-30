@@ -9,6 +9,14 @@
   hosts: vaultserver1
 
   tasks:
+
+# Update hosts file if DNS is not used to resolve clusters FQDN
+   - name: Update hosts file
+     lineinfile:
+       path: /etc/hosts
+       line: "{{ ansible_default_ipv4.address }} vault.askarta.local"
+       create: yes
+
 # Load the master_token created in the build/init process into "vault_token"
    - name: Load the master_token created in the build/init process
      become: no
@@ -82,7 +90,7 @@
 
 # Clean up and remove the files that are no longer required
 #
-- hosts: cc
+- hosts: vaultservers
   become: yes
   tasks:
     - name: Clean up and remove files that are no longer required

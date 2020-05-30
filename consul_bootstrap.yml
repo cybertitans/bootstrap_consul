@@ -122,7 +122,7 @@
      file: "~/.agent_token"
      name: agenttoken
 
-  - name: Add agent_token to all serverss config.json
+  - name: Add agent_token to all servers config.json
     template:
       src: templates/config_acl_agenttoken.json.j2
       dest: "/etc/consul.d/config.json"
