@@ -12,6 +12,7 @@
     prompt: "Do you want to initialize the cluster [Yes/No]? [No] "
     default: "no"
 
+# Load agent_token that was previously created by consul playbooks into agenttoken var.
   tasks:
   - name: Include vars of ACL agent_token into the 'agent_token'
     include_vars:
