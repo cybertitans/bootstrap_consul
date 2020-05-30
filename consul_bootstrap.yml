@@ -23,7 +23,7 @@
 
 # Start bootstrap process and use primary/active server (consuls1)
 -  name: Start bootstrap master_token
-   hosts: "{{ Primary_consul_server }}"
+   hosts: consuls1
    tasks:
 
     - name: pause to allow the cluster to come up
