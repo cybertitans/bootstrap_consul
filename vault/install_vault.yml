@@ -18,7 +18,7 @@
       path: /etc/hosts
       line: "{{ ansible_default_ipv4.address }} vault.askarta.local"
       create: yes
-      when: ansible_hostname == consulsclient1
+    
 
 
 # Load agent_token that was previously created by consul playbooks into agenttoken var.
