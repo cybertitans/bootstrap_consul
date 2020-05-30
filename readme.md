@@ -12,7 +12,7 @@ Consul is a Hashicorp based tool for discovering and configuring a variety of di
 
 ## Consul - Architecture
 
-![Consul - Architecture](files/vault-ha-consul.png)
+![Consul - Architecture](files/consul.png)
 
 ## Prerequisites and assumptions
 
