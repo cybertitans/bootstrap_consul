@@ -4,7 +4,7 @@
 
 ### Install --> Configure —> Start —> Initialise —> Unseal —>  Operate
 
-![Vault HA](/files/vault-ha-consul.png)
+![Vault HA](files/vault-ha-consul.png)
 
 |Create following directories|
 |----------------------------|
