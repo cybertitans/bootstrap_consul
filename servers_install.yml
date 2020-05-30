@@ -5,7 +5,7 @@
   tasks:
 
   # Copy consul binary to servers
-  - name: Include task list in play only if the condition is true
+  - name: Include install consul playbook
     include: tasks/installconsul.yml
 
 # Create consul keygen 32-bytes, Base64 encoded
@@ -49,7 +49,7 @@
       name: consul
       state: restarted
 
-# Install autocomplete-install
+# Restart Consul
   handlers:
    - name: restart consul
      service:

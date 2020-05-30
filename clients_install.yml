@@ -14,7 +14,7 @@
      name: agenttoken
 
 # Copy consul binary to clients/agents
-  - name: Include task list in play only if the condition is true
+  - name: Include install consul playbook
     include: tasks/installconsul.yml
 
 # Copy config.json template file to agents/clients
@@ -31,17 +31,18 @@
      dest: "/etc/systemd/system/consul.service"
     notify: restart consul
 
-# Install autocomplete & restart 
+# Install autocomplete & restart
   - name: Install autocomplete
     become: no
     shell: "consul -autocomplete-install"
+    ignore_errors: yes
 
   - name: Restart consul
     service:
       name: consul
       state: restarted
 
-#Re start consul
+#Restart consul
   handlers:
   - name: restart consul
     service:
