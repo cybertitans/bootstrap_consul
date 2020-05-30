@@ -5,7 +5,7 @@
 
 - name: Install vault servers
   become: yes
-  hosts: cc
+  hosts: vaultservers
   vars_prompt:
 
   - name: "initialize_cluster"
