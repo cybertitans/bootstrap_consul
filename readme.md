@@ -29,14 +29,18 @@ Consul is a Hashicorp based tool for discovering and configuring a variety of di
 ## Example inventory file
 
 ```
-[consulsclients]
-consulsclient1 ansible_host=192.168.50.177
+[consulclients]
+consulclient1 ansible_host=192.168.50.177
 consulclient2 ansible_host=192.168.50.178
 
 [consulservers]
 consuls1 ansible_host=192.168.50.187
 consuls2 ansible_host=192.168.50.188
 consuls3 ansible_host=192.168.50.189
+
+[vaultservers]
+vaultserver1 ansible_host=192.168.50.177
+vaultserver2 ansible_host=192.168.50.178
 
 [all:vars]
 ansible_connection=ssh
