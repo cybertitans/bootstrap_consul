@@ -96,7 +96,7 @@
       path: /etc/hosts
       line: "{{ ansible_default_ipv4.address }} vault.askarta.local"
       create: yes
-    when: ansible_hostname == consulsclient1
+    when: ansible_hostname == 'consulsclient1'
 
 # Initialize the cluster if the initialize_cluster value is yes
   - name: Initialize the cluster using shell module
