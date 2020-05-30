@@ -21,7 +21,7 @@
        name: consul
        state: restarted
 
-# Start bootstrap process and use one server (consuls1)
+# Start bootstrap process and use primary/active server (consuls1)
 -  name: Start bootstrap master_token
    hosts: consuls1
    tasks:
