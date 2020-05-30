@@ -1,2 +1,3 @@
 number_servers: "3"
 datacenter: Askarta
+Primary_consul_server: consuls1

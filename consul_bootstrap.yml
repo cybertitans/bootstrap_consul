@@ -23,7 +23,7 @@
 
 # Start bootstrap process and use primary/active server (consuls1)
 -  name: Start bootstrap master_token
-   hosts: consuls1
+   hosts: "{{ Primary_consul_server }}"
    tasks:
 
     - name: pause to allow the cluster to come up
@@ -33,7 +33,7 @@
 # Create and bootstrap master_token (make sure you secure it)
     - name: bootstrap Server
       uri:
-       url: http://consuls1:8500/v1/acl/bootstrap
+       url: http://"{{ Primary_consul_server }}":8500/v1/acl/bootstrap
        headers:
        method: PUT
        return_content: yes
@@ -53,7 +53,7 @@
 # Create new policies for the consul agents, dns and to list nodes
     - name: Create required policies
       uri:
-       url: http://consuls1:8500/v1/acl/policy
+       url: http://"{{ Primary_consul_server }}":8500/v1/acl/policy
        headers:
         X-Consul-Token: "{{ master_token.json.SecretID }}"
        method: PUT
