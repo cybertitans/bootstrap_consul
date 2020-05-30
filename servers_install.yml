@@ -1,6 +1,6 @@
 - name: Install Consul servers
   become: yes
-  hosts: cs
+  hosts: consulservers
 
   tasks:
 

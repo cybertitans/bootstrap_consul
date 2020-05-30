@@ -1,6 +1,6 @@
 - name: Install consul agents/clients
   become: yes
-  hosts: cc
+  hosts: consulclients
 
   tasks:
   - name: Include vars of encryption_keygen into the 'keygen'

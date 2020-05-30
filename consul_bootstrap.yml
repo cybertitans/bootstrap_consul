@@ -1,4 +1,4 @@
-- hosts: cs
+- hosts: consulservers
   become: yes
 
 # Enable ACL by changing config.json on all servers & reloading them
@@ -112,7 +112,7 @@
        consul acl token update -id 00000000-0000-0000-0000-000000000002 --merge-policies -description "Anonymous Token - Can List Nodes" -policy-name service-consul-read
 
 # Update servers config.json with agent_token and reload service
-- hosts: cs
+- hosts: consulservers
   become: yes
   tasks:
 
