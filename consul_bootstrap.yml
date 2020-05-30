@@ -33,7 +33,7 @@
 # Create and bootstrap master_token (make sure you secure it)
     - name: bootstrap Server
       uri:
-       url: http://"{{ Primary_consul_server }}":8500/v1/acl/bootstrap
+       url: "http://{{ Primary_consul_server }}:8500/v1/acl/bootstrap"
        headers:
        method: PUT
        return_content: yes
