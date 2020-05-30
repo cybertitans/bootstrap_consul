@@ -24,16 +24,8 @@
       - /etc/consul.d
       - /consul-data
 
-# Install unzip
-  - name: Install unzip
-    apt:
-      force_apt_get: yes
-      update_cache: yes
-      name: unzip
-      state: present
-
 # Copy consul binary to server
   - name: Copy consul binary to the servers
     unarchive:
-      src: "files/consul/consul_1.7.2_linux_amd64.zip"
+      src: "files/consul/consul_1.7.2_linux_amd64"
       dest: "/usr/bin"
