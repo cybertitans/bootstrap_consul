@@ -28,9 +28,10 @@ These playbooks automate the installation guidelines provided by Hashicorp and a
 * Signing SSH keys
 * Transit secrets
 
+```
 https://learn.hashicorp.com/vault/operations/ops-vault-ha-consul
 https://devopscube.com/setup-hashicorp-vault-beginners-guide/
-
+```
 ### Prerequisites and assumptions
 * You used the consul playbooks
 * Backend storage is Consul
