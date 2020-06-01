@@ -1,0 +1,23 @@
+# Update servers config.json with agent_token and reload service
+- hosts: consulservers
+  become: yes
+  tasks:
+
+# Read and load agent_token previously created.
+  - name: Include vars of agent_token into the 'agent_token'
+    include_vars:
+     file: "~/.agent_token"
+     name: agenttoken
+
+  - name: Add agent_token to all servers config.json
+    template:
+      src: templates/config_acl_agenttoken.json.j2
+      dest: "/etc/consul.d/config.json"
+      force: yes
+    notify: restart consul
+
+  handlers:
+    - name: restart consul
+      service:
+       name: consul
+       state: restarted

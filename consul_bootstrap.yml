@@ -1,25 +1,7 @@
-- hosts: consulservers
-  become: yes
 
 # Enable ACL by changing config.json on all servers & reloading them
-  tasks:
-  - name: Load vars of encryption_keygen into the 'keygen' var
-    include_vars:
-     file: group_vars/encryption_keygen
-     name: keygen
-
-  - name: Copy config config.json (ACL enabled template)
-    template:
-      src: templates/config_acl.json.j2
-      dest: "/etc/consul.d/config.json"
-      force: yes
-    notify: reload consul
-
-  handlers:
-    - name: reload consul
-      service:
-       name: consul
-       state: restarted
+- name: Change config file and enable ACL
+  import_playbook: enable_acl.yml
 
 # Start bootstrap process and use primary/active server (consuls1)
 -  name: Start bootstrap master_token
@@ -50,7 +32,7 @@
        dest: "~/.master_token"
       delegate_to: localhost
 
-# Create new policies for the consul agents, dns and to list nodes
+# Create new policies for the consul agents, anonymous read only for dns and to list nodes
     - name: Create required policies
       uri:
        url: "http://{{ Primary_consul_server }}:8500/v1/acl/policy"
@@ -111,26 +93,6 @@
        consul acl token update -id 00000000-0000-0000-0000-000000000002 -policy-name list-all-nodes -description "Anonymous Token - Can List Nodes"
        consul acl token update -id 00000000-0000-0000-0000-000000000002 --merge-policies -description "Anonymous Token - Can List Nodes" -policy-name service-consul-read
 
-# Update servers config.json with agent_token and reload service
-- hosts: consulservers
-  become: yes
-  tasks:
-
-# Read and load agent_token previously created.
-  - name: Include vars of agent_token into the 'agent_token'
-    include_vars:
-     file: "~/.agent_token"
-     name: agenttoken
-
-  - name: Add agent_token to all servers config.json
-    template:
-      src: templates/config_acl_agenttoken.json.j2
-      dest: "/etc/consul.d/config.json"
-      force: yes
-    notify: restart consul
-
-  handlers:
-    - name: restart consul
-      service:
-       name: consul
-       state: restarted
+# Add agents token to the config file to enable them to join the cluster
+- name: Chang servers config file and add agents token
+  import_playbook: add_agnet_acl_token.yml

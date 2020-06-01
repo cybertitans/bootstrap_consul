@@ -1,0 +1,22 @@
+# Enable ACL by changing config.json on all servers & reloading them
+- hosts: consulservers
+  become: yes
+  tasks:
+
+  - name: Load encryption_keygen token into the 'keygen' var
+    include_vars:
+     file: group_vars/encryption_keygen
+     name: keygen
+
+  - name: Copy config config.json and enable ACL and include encryption_keygen
+    template:
+      src: templates/config_acl.json.j2
+      dest: "/etc/consul.d/config.json"
+      force: yes
+    notify: reload consul
+
+  handlers:
+    - name: reload consul
+      service:
+       name: consul
+       state: restarted
