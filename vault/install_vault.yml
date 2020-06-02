@@ -1,7 +1,7 @@
 # This playbook installs vault and assumes backend is consul
 # You must initialize vault manually
 # Uploads all the files the configuration playbook needs
-# Provide your own cert/keys for vault, ldap, rootca
+# I recommend you provide your own cert/keys for vault, ldap, rootca
 
 - name: Install vault servers
   become: yes
