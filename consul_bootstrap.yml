@@ -35,7 +35,7 @@
 # Create new policies for the consul agents, anonymous read only for dns and to list nodes
     - name: Create required policies
       uri:
-       url: "http://{{ Primary_consul_server }}:8500/v1/acl/policy"
+       url: "http://{{ groups['consulservers'][0] }}:8500/v1/acl/policy"
        headers:
         X-Consul-Token: "{{ master_token.json.SecretID }}"
        method: PUT
