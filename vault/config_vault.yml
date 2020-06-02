@@ -1,9 +1,10 @@
 # Vault must be installed, unsealed  and required files already uploaded
 # This playbook assumes you used installvault.yml first & preloaded all required files.
-# It configures dynamic mysql secrets, & ldap
+# Configures dynamic mysql secrets & ldap
 # Creates basic policies for users/devteam (AD groups are via DLAP)
-# Also adds cert to trusted store & for ldaps
-# Select only the primary vault server
+# Adds rootca cert to trusted store
+# Selects the first server in your inventory vault server
+# Cleans up and deletes all files after config is completed
 
 - name: Configure vault
   hosts: vaultservers[0]
