@@ -74,6 +74,7 @@
 # Download the pulic key and upload to all servers
    - name: Download the pulic key
      shell: curl https://vault.askarta.local:8200/v1/ssh-key-signer/public_key > trusted-user-ca-keys.pem
+     warn: false
 
    - name: Store file into /tmp/fetched/host.example.com/tmp/somefile
      fetch:
