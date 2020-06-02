@@ -12,7 +12,7 @@ Consul is a Hashicorp based tool for discovering and configuring a variety of di
 
 |Notice/Warning|
 |--------------|
-|I included cert/private keys in this so anyone can clone it, add required consul/vault binaries and run the playbooks. These certs/keys are not used in prod and are only created for just this lab so not sensitive. Hopefully this will help anyone learning to start playing with it and figure out how this works but lease don’t ever upload your private certs/key or anything sensitive.|
+|I included cert/private keys in this so anyone can clone it, add required consul/vault binaries and run the playbooks. These certs/keys are not used in prod and are only created for just this lab so not sensitive. Hopefully this will help anyone learning to start playing with it and figure out how this works but please don’t ever upload your private certs/key or anything sensitive.|
 
 ## Consul - Architecture
 
