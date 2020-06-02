@@ -10,6 +10,11 @@ Consul is a Hashicorp based tool for discovering and configuring a variety of di
   | Multi Datacenter Deployment − Consul supports multiple datacentres. It is used for building additional layers of abstraction to grow to multiple regions.|
   | Web UI − Consul provides its users a beautiful web interface using which it can be easy to use and manage all of the features in consul.|
 
+```
+Notice
+
+I included cert/private keys in this so anyone can clone it, add required consul/vault binaries and run the playbooks. These certs/keys are not used in prod and are only created for just this lab so not sensitive. Hopefully this will help anyone learning to start playing with it and figure out how this works but lease don’t ever upload your private certs/key or anything sensitive.
+```
 ## Consul - Architecture
 
 ![Consul - Architecture](files/consul.png)
