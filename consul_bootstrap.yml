@@ -3,7 +3,7 @@
 - name: Change config file and enable ACL
   import_playbook: enable_acl.yml
 
-# Start bootstrap process and use primary/active server (consuls1)
+# Start bootstrap process and use first server in the inventory list 
 -  name: Start bootstrap master_token
    hosts: consulservers[0]
    tasks:

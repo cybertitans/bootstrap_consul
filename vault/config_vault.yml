@@ -6,7 +6,7 @@
 # Select only the primary vault server
 
 - name: Configure vault
-  hosts: vaultserver1
+  hosts: vaultservers[0]
 
   tasks:
 
