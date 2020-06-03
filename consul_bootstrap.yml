@@ -26,7 +26,7 @@
       debug:
         var: master_token.json
 
-    - name: copy the output to a local file
+    - name: Write the master_token to a local file
       copy:
        content: "{{ master_token.json.SecretID }}"
        dest: "{{consul_tokens_dir}}/master_token"
@@ -60,7 +60,7 @@
       debug:
         var: "agent_token.stdout_lines"
 
-    - name: copy the agent_token output to a local file
+    - name: Write the agent_token output to a local file
       copy:
        content: "{{ agent_token.stdout}}"
        dest: "{{consul_tokens_dir}}/agent_token"
@@ -78,7 +78,7 @@
       debug:
         var: ui_token.stdout_lines
 
-    - name: copy the ui_token output to a local file
+    - name: Write the ui_token output to a local file
       copy:
        content: "{{ ui_token.stdout_lines }}"
        dest: "{{consul_tokens_dir}}/ui_token"
