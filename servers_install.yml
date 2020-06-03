@@ -14,7 +14,6 @@
     file:
       path: "{{ consul_tokens_dir }}"
       state: directory
-      mode: '0600'
     delegate_to: localhost
 
 # Create consul keygen 32-bytes, Base64 encoded
