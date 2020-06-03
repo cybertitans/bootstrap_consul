@@ -27,6 +27,7 @@
         var: master_token.json
 
     - name: Write the master_token to a local file
+      become: no
       copy:
        content: "{{ master_token.json.SecretID }}"
        dest: "{{consul_tokens_dir}}/master_token"
