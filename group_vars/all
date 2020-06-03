@@ -1,1 +1,3 @@
+number_servers: "3"
+datacenter: "Askarta"
 consul_tokens_dir: "~/.consul_tokens"
