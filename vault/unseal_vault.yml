@@ -5,7 +5,8 @@
   tasks:
 # Read previously created vault tokens from local file “{{ consul_tokens_dir }}”/vault_init
     - name: Load the master_token created in the build/init process
-      shell: cat {{ consul_tokens_dir }}/vault_init | jq -r '.' | grep -m 3 Unseal | sed 's/[",]//g' | awk '{ print $4}'
+      shell: cat ~/.consul_tokens/vault_init | awk '/[Unseal]/{print  $4 "\n" $8 "\n" $12}'| sed 's/[",]//g' 
+      #shell: cat {{ consul_tokens_dir }}/vault_init | jq -r '.' | grep -m 3 Unseal | sed 's/[",]//g' | awk '{ print $4}'
       register: vault_tokens
       delegate_to: localhost
 
