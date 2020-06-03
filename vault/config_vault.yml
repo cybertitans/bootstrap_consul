@@ -14,7 +14,7 @@
 # Load the master_token created in the build/init process into "vault_token"
    - name: Load the master_token created in the build/init process
      become: no
-     shell: cat ~/.vault_init | grep -e 'Initial Root Token:' | gawk -F '"' '{print $14}' | awk '{print $4}'
+     shell: cat {{ consul_tokens_dir }}/vault_init | grep -e 'Initial Root Token:' | gawk -F '"' '{print $14}' | awk '{print $4}'
      register: vault_token
      delegate_to: localhost
 
