@@ -10,6 +10,7 @@
 
 # Create consul_tokens_dir
   - name: Create directory for all tokes
+    become: no
     file:
       path: "{{ consul_tokens_dir }}"
       state: directory
