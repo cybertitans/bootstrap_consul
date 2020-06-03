@@ -6,7 +6,7 @@
 # Read and load agent_token previously created.
   - name: Include vars of agent_token into the 'agent_token'
     include_vars:
-     file: "~/.agent_token"
+     file: "{{consul_tokens_dir}}/agent_token"
      name: agenttoken
 
   - name: Add agent_token to all servers config.json

@@ -21,7 +21,7 @@
   - name: copy the keygen output to a local file
     copy:
      content: '{{ keygen }}'
-     dest: "group_vars/encryption_keygen"
+     dest: "{{consul_tokens_dir}}/encryption_keygen"
     delegate_to: localhost
     run_once: true
 
