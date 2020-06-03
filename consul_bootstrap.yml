@@ -3,8 +3,8 @@
 - name: Change config file and enable ACL
   import_playbook: enable_acl.yml
 
-# Start bootstrap process and use first server in the inventory list 
--  name: Start bootstrap master_token
+# Start bootstrap process and use first server in the inventory list
+-  name: Start bootstrap and create master_token
    hosts: consulservers[0]
    tasks:
 
@@ -29,7 +29,7 @@
     - name: copy the output to a local file
       copy:
        content: "{{ master_token.json.SecretID }}"
-       dest: "~/.master_token"
+       dest: "{{consul_tokens_dir}}/master_token"
       delegate_to: localhost
 
 # Create new policies for the consul agents, anonymous read only for dns and to list nodes
@@ -63,7 +63,7 @@
     - name: copy the agent_token output to a local file
       copy:
        content: "{{ agent_token.stdout}}"
-       dest: "~/.agent_token"
+       dest: "{{consul_tokens_dir}}/agent_token"
       delegate_to: localhost
 
 # Create a new token for the UI and associated token and save it ~/.ui_token
@@ -81,7 +81,7 @@
     - name: copy the ui_token output to a local file
       copy:
        content: "{{ ui_token.stdout_lines }}"
-       dest: "~/.ui_token"
+       dest: "{{consul_tokens_dir}}/ui_token"
       delegate_to: localhost
 
 # Update the anonymous token and associate with DNS and node list policy (Optional)
