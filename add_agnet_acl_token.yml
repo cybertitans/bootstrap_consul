@@ -1,4 +1,4 @@
-# Update servers config.json with agent_token and reload service
+# Update servers config.json with agent_token and reload consul service
 - hosts: consulservers
   become: yes
   tasks:

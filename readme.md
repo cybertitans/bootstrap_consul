@@ -58,12 +58,12 @@ ansible_python_interpreter=/usr/bin/python2.7
 ## Instructions
 
 - Ensure all servers can communicate and prerequisites listed above are installed
-- Only use to bootstrap and build a new cluster
+- Only use to bootstrap when build a new cluster
 - Ensure you add number of servers to the group_vars/all file (default is 3)
 - Ensure you change the datacenter name (group_vars/all)
-- Ensure bootstrap.yml host is pointing to only one server (default is consuls1)
-- If ACL is not required use config.json.j2 template and run installcluster.yml
+- Ensure bootstrap.yml host is pointing to only one server (default 1st on the list)
+- If ACL is not required use config.json.j2 template and run installcluster.yml only
 - Check the policies to ensure required access is provided
-- Tokens created will be stored in ~/.tokenname  
+- Tokens created will be stored in ~/.token-name  
 - Encryption key will be installed group_vars/encryption_keygen
-- Binary is expected to be in files/consul/consul_1.7.2_linux_amd64.zip
+- Binary is expected to be in files/consul/consul_1.7.2_linux_amd64

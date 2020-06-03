@@ -1,4 +1,4 @@
-# Enable ACL by changing config.json on all servers & reloading them
+# Enable ACL by changing config.json on all servers & rstarting consul service
 - hosts: consulservers
   become: yes
   tasks:
