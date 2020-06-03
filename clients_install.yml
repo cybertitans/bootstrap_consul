@@ -10,7 +10,7 @@
 
   - name: Include vars of agent_token into the 'agent_token'
     include_vars:
-     file: "~/.agent_token"
+     file: "{{consul_tokens_dir}}/agent_token"
      name: agenttoken
 
 # Copy consul binary to clients/agents
