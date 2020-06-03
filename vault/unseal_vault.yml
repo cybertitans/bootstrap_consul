@@ -1,0 +1,21 @@
+- name: Configure vault
+  hosts: vaultservers
+  become: no
+
+  tasks:
+# Read previously created vault tokens from local file “{{ consul_tokens_dir }}”/vault_init
+    - name: Load the master_token created in the build/init process
+      shell: cat {{ consul_tokens_dir }}/vault_init | jq -r '.' | grep -m 3 Unseal | sed 's/[",]//g' | awk '{ print $4}'
+      register: vault_tokens
+      delegate_to: localhost
+
+    - name: Print returned unseal vault_tokens and make them available as "vault_tokens" var
+      debug:
+       var: vault_tokens.stdout_lines
+
+    - name: Unseal vault with unseal keys
+      shell: |
+        vault operator unseal {{ item }}
+      environment:
+        VAULT_ADDR: "{{ vault_add }}"
+      with_items: "{{vault_tokens.stdout_lines}}"
