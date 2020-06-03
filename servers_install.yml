@@ -18,7 +18,7 @@
     debug:
      var: keygen.stdout
 
-  - name: copy the keygen output to a local file
+  - name: Write the encryption keygen output to a local file
     copy:
      content: '{{ keygen }}'
      dest: "{{consul_tokens_dir}}/encryption_keygen"
