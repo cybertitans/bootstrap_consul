@@ -9,7 +9,7 @@
   vars_prompt:
 
   - name: "initialize_cluster"
-    prompt: "Do you want to initialize the cluster [Yes/No]? [No] "
+    prompt: "Do you want to initialize the cluster [Yes/No]? [Default is No] "
     default: "no"
 
 # Load agent_token that was previously created by consul playbooks into agenttoken var.
