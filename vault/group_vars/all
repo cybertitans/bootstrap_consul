@@ -2,4 +2,4 @@
 cert: "/etc/vault/certs.pem"
 privatekey: "/etc/vault/vaultkey.pem"
 vault_add: "https://vault.askarta.local:8200"
-consul_tokens_dir: "~/.consul_tokens_{{ ansible_date_time }}"
+consul_tokens_dir: "~/.consul_tokens"
