@@ -34,7 +34,7 @@
 
    - name: Print returned vault_token and make token as var
      debug:
-       var: csr.stdout_lines
+       var: csr
 
 
 
