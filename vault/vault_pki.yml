@@ -27,7 +27,7 @@
         - vault secrets tune -max-lease-ttl=43800h pki_int
 
    # Create and copy CSR to a file
-   - name: This command will change the working directory to somedir/.
+   - name: Create CSR and copy file to pki_intermediate.csr on the remote server
      shell:
       cmd: vault write -format=json pki_int/intermediate/generate/internal
           common_name="{{ domain }} Intermediate Authority" | jq -r '.data.csr' > pki_intermediate.csr
