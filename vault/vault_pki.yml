@@ -30,7 +30,7 @@
    - name: Create CSR and copy file to pki_intermediate.csr on the remote server
      shell:
       cmd: vault write -format=json pki_int/intermediate/generate/internal
-          common_name="{{ domain }} Intermediate Authority" | jq -r '.data.csr' > pki_intermediate.csr
+          common_name="{{ domain }} Intermediate Authority" | jq -r '.data.csr' 
 
 
 
