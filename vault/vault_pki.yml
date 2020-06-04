@@ -28,6 +28,9 @@
 
    # Create and copy CSR to a file
    - name: Create CSR and copy file to pki_intermediate.csr on the remote server
+     environment:
+       VAULT_ADDR: "{{ vault_add }}"
+       VAULT_TOKEN: "{{ vault_token.stdout }}"
      shell: vault write -format=json pki_int/intermediate/generate/internal
           common_name="{{ domain }} Intermediate Authority" | jq -r '.data.csr'
      register: csr
