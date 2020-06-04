@@ -15,7 +15,7 @@
       var: vault_token.stdout
 
 # Generate PKI and create Intermediate CSR
-   - name: Enable PKI secrets engines 
+   - name: Enable PKI secrets engines
      environment:
        VAULT_ADDR: "{{ vault_add }}"
        VAULT_TOKEN: "{{ vault_token.stdout }}"
@@ -25,9 +25,10 @@
         - vault secrets tune -max-lease-ttl=87600h pki
         - vault secrets enable -path=pki_int pki
         - vault secrets tune -max-lease-ttl=43800h pki_int
-        - vault write -format=json pki_int/intermediate/generate/internal
+        - vault write -format=yaml pki_int/intermediate/generate/internal
            common_name="{{ domain }} Intermediate Authority"
-           | jq -r '.data.csr' > pki_intermediate.csr
+             | jq -r '.data.csr' >  pki_intermediate.csr
+
 
 # After CSR is signed please run this command manually to upload signed pub cert
 # vault write pki_int/intermediate/set-signed certificate=@intermediate.cert
