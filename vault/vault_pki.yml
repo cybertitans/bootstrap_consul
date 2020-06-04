@@ -26,7 +26,7 @@
         - vault secrets enable -path=pki_int pki
         - vault secrets tune -max-lease-ttl=43800h pki_int
         - vault write -format=json pki_int/intermediate/generate/internal
-            common_name="{{ domain }} Intermediate Authority" | jq -r '.data.csr' \> pki_intermediate.csr
+            common_name="{{ domain }} Intermediate Authority" | jq -r '.data.csr' &> pki_intermediate.csr
 
 
 
