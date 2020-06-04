@@ -1,11 +1,7 @@
 - name: Configure vault
   hosts: vaultservers
   become: no
-  vars_prompt:
-    - name: "Unseal_vault"
-      prompt: "Do you want to unseal the cluster [Yes/No]? [Default is No]"
-      default: "no"
-
+  
   tasks:
 # Read previously created vault tokens from local file “{{ consul_tokens_dir }}”/vault_init
     - name: Load the master_token created in the build/init process
@@ -23,4 +19,3 @@
       environment:
         VAULT_ADDR: "{{ vault_add }}"
       with_items: "{{vault_tokens.stdout_lines}}"
-      when: Unseal_vault == yes
