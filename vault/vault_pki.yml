@@ -1,3 +1,7 @@
+# This playbook configures vault PKI to become an issuer for existing PKI root CA
+# This means CSR created and saved under “~/.consul_tokens/pki_intermediate.csr” must be signed by the existing CA
+# Final step - manually upload signed int_pki public cert using command at the bottom of this playbook
+
 - name: Configure vault
   hosts: vaultservers[0]
 
@@ -34,9 +38,16 @@
      shell: vault write -format=json pki_int/intermediate/generate/internal
           common_name="{{ domain }} Intermediate Authority" | jq -r '.data.csr' > pki_intermediate.csr
 
+   - name: Copy pki_in CSR file to local server
+     fetch:
+      src: pki_intermediate.csr
+      dest: "{{consul_tokens_dir}}/pki_intermediate.csr"
+      flat: yes
 
-
-
+   - name: Remove pki_in CSR file from remote server
+     file:
+      path: pki_intermediate.csr
+      state: absent
 
 # After CSR is signed please run this command manually to upload signed pub cert
 # vault write pki_int/intermediate/set-signed certificate=@intermediate.cert
