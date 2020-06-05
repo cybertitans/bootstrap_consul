@@ -30,6 +30,11 @@
         - vault secrets enable -path=pki_int pki
         - vault secrets tune -max-lease-ttl=43800h pki_int
 
+   - name: Install JQ so json output can manipulate and only cert extracted
+     apt:
+      name: jq
+      state: present
+
    # Create and copy CSR to a file
    - name: Create CSR and copy file to pki_intermediate.csr on the remote server
      environment:
