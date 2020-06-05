@@ -6,6 +6,9 @@
 # Selects the first server in your inventory vault server
 # Cleans up and deletes all files after config is completed
 
+- name: install & configure the agents with the right token
+  import_playbook: unseal_vault.yml
+
 - name: Configure vault
   hosts: vaultservers[0]
 
