@@ -19,7 +19,7 @@
 |Start vault services|systemctl start vault.service|
 |Check service status|systemctl status vault.service|
 |Enable vault service at boot up|systemctl enable vault.service|
-|Initialise vault and copy tokens to a local file |Location of file is ~/.vault_init|
+|Initialise vault and copy tokens to a local file |Location of file is ~/.consul_vault_tokens/vault_init|
 |Environment vault URL added .bashrc|export VAULT_ADDR=https://vault.askarta.local:8200 |
 |Change vars in group_vars/all | change following var values  cert, privatekey and vault_add |
 
