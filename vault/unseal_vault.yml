@@ -1,9 +1,14 @@
 - name: Configure vault
   hosts: vaultservers
   become: no
+  vars_prompt:
+
+    - name: "Unseal"
+      prompt: "Do you want to unseal vault [Yes/No]? [Default is No] "
+      default: "no"
 
   tasks:
-# Read previously created vault tokens from local file “{{ tokens_dir }}”/vault_init
+    # Read previously created vault tokens from local file “{{ tokens_dir }}”/vault_init
     - name: Load the master_token created in the build/init process
       shell: cat {{ tokens_dir }}/vault_init | awk '/[Unseal]/{print  $4 "\n" $8 "\n" $12}'| sed 's/[",]//g'
       register: vault_tokens
@@ -19,3 +24,4 @@
       environment:
         VAULT_ADDR: "{{ vault_add }}"
       with_items: "{{vault_tokens.stdout_lines}}"
+      when: Unseal == "yes"
