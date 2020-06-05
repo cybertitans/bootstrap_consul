@@ -2,5 +2,5 @@
 cert: "/etc/vault/certs.pem"
 privatekey: "/etc/vault/vaultkey.pem"
 vault_add: "https://vault.askarta.local:8200"
-consul_tokens_dir: "~/.consul_tokens"
+tokens_dir: "~/.consul_vault_tokens"
 domain: "askarta.local"

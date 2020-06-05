@@ -16,7 +16,7 @@
   tasks:
   - name: Include vars of ACL agent_token into the 'agent_token'
     include_vars:
-     file: "{{consul_tokens_dir}}/agent_token"
+     file: "{{ tokens_dir }}/agent_token"
      name: agenttoken
 
 # Create vault user and group
@@ -115,7 +115,7 @@
     become: no
     copy:
      content: '{{ vault_init.stdout_lines }}'
-     dest: "{{consul_tokens_dir}}/vault_init"
+     dest: "{{tokens_dir}}/vault_init"
     delegate_to: localhost
     when: initialize_cluster == "yes"
 

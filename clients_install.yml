@@ -5,12 +5,12 @@
   tasks:
   - name: Include vars of encryption_keygen into the 'keygen'
     include_vars:
-     file: "{{ consul_tokens_dir }}/encryption_keygen"
+     file: "{{ tokens_dir }}/encryption_keygen"
      name: keygen
 
   - name: Include vars of agent_token into the 'agent_token'
     include_vars:
-     file: "{{ consul_tokens_dir }}/agent_token"
+     file: "{{ tokens_dir }}/agent_token"
      name: agenttoken
 
 # Copy consul binary to clients/agents

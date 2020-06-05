@@ -5,7 +5,7 @@
 
   - name: Load encryption_keygen token into the 'keygen' var
     include_vars:
-     file: "{{consul_tokens_dir}}/encryption_keygen"
+     file: "{{ tokens_dir }}/encryption_keygen"
      name: keygen
 
   - name: Copy config config.json and enable ACL and include encryption_keygen

@@ -30,7 +30,7 @@
       become: no
       copy:
        content: "{{ master_token.json.SecretID }}"
-       dest: "{{consul_tokens_dir}}/master_token"
+       dest: "{{ tokens_dir }}/master_token"
       delegate_to: localhost
 
 # Create new policies for the consul agents, anonymous read only for dns and to list nodes
@@ -64,7 +64,7 @@
     - name: Write the agent_token output to a local file
       copy:
        content: "{{ agent_token.stdout}}"
-       dest: "{{consul_tokens_dir}}/agent_token"
+       dest: "{{tokens_dir}}/agent_token"
       delegate_to: localhost
 
 # Create a new token for the UI and associated token and save it ~/.ui_token
@@ -82,7 +82,7 @@
     - name: Write the ui_token output to a local file
       copy:
        content: "{{ ui_token.stdout_lines }}"
-       dest: "{{consul_tokens_dir}}/ui_token"
+       dest: "{{tokens_dir}}/ui_token"
       delegate_to: localhost
 
 # Update the anonymous token and associate with DNS and node list policy (Optional)

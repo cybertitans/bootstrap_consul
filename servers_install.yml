@@ -8,11 +8,11 @@
   - name: Include install consul playbook
     include: tasks/installconsul.yml
 
-# Create consul_tokens_dir
+# Create tokens_dir
   - name: Create directory for all tokes
     become: no
     file:
-      path: "{{ consul_tokens_dir }}"
+      path: "{{ tokens_dir }}"
       state: directory
     delegate_to: localhost
 
@@ -30,7 +30,7 @@
     become: no
     copy:
      content: '{{ keygen }}'
-     dest: "{{consul_tokens_dir}}/encryption_keygen"
+     dest: "{{ tokens_dir }}/encryption_keygen"
     delegate_to: localhost
     run_once: true
 
