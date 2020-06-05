@@ -9,7 +9,7 @@
      file: "{{ tokens_dir }}/encryption_keygen"
      name: keygen
 
-  - name: Copy config config.json and enable ACL and include encryption_keygen
+  - name: Copy new config config.json file with ACL enabled and encryption_keygen included
     template:
       src: templates/config_acl.json.j2
       dest: "/etc/consul.d/config.json"

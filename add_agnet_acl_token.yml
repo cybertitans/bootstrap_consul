@@ -4,7 +4,7 @@
   tasks:
 
 # Read and load previously created agent_token into "agenttoken".
-  - name: Include vars of agent_token into the 'agent_token'
+  - name: Load previously created agent_token into the 'agenttoken' var
     include_vars:
      file: "{{ tokens_dir }}/agent_token"
      name: agenttoken
