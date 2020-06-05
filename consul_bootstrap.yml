@@ -87,7 +87,7 @@
 
 # Update the anonymous token and associate with DNS and node list policy (Optional)
 
-    - name: Update and associate above policies with anonymous token
+    - name: Update and associate created policies with anonymous token
       environment:
        CONSUL_HTTP_TOKEN: "{{ master_token.json.SecretID }}"
       shell: |

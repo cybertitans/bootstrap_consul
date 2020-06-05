@@ -8,7 +8,7 @@
      file: "{{ tokens_dir }}/encryption_keygen"
      name: keygen
 
-  - name: Load previously created agent_token & load into the 'agent_token'
+  - name: Load previously created agent_token & into 'agent_token' var
     include_vars:
      file: "{{ tokens_dir }}/agent_token"
      name: agenttoken
@@ -18,14 +18,14 @@
     include: tasks/installconsul.yml
 
 # Copy config.json template file to agents/clients
-  - name: Copy config template
+  - name: Copy config template to remote servers
     template:
       src: templates/agent_config_acl.json.j2
       dest: "/etc/consul.d/config.json"
     notify: restart consul
 
 # Copy the consul.service file to agents/clients
-  - name: Copy consul.service
+  - name: Copy consul.service to remote servers 
     copy:
      src: files/agent_consul.service
      dest: "/etc/systemd/system/consul.service"

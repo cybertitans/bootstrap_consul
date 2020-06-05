@@ -35,13 +35,13 @@
     run_once: true
 
 # Copy config.json template file to server
-  - name: Copy config.json template
+  - name: Copy config.json template to remote servers
     template:
       src: templates/config.json.j2
       dest: "/etc/consul.d/config.json"
 
 # Copy the consul.service file to server
-  - name: Copy consul.service template
+  - name: Copy consul.service template to remote servers 
     copy:
      src: files/consul.service
      dest: "/etc/systemd/system/consul.service"
