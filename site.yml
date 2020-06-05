@@ -1,5 +1,5 @@
 ---
-# Warning! Only use this when rebuilding new cluster.
+# Warning! Only use this when rebuilding a new cluster.
 
 - name: install consul (ACL not enabled)
   import_playbook: servers_install.yml

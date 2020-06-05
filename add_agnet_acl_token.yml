@@ -3,7 +3,7 @@
   become: yes
   tasks:
 
-# Read and load agent_token previously created.
+# Read and load previously created agent_token into "agenttoken".
   - name: Include vars of agent_token into the 'agent_token'
     include_vars:
      file: "{{ tokens_dir }}/agent_token"

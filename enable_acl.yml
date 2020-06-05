@@ -3,6 +3,7 @@
   become: yes
   tasks:
 
+# Read previously created encryption key from local file
   - name: Load encryption_keygen token into the 'keygen' var
     include_vars:
      file: "{{ tokens_dir }}/encryption_keygen"

@@ -3,12 +3,12 @@
   hosts: consulclients
 
   tasks:
-  - name: Include vars of encryption_keygen into the 'keygen'
+  - name: Load previously created encryption key from encryption_keygen file & into the 'keygen'
     include_vars:
      file: "{{ tokens_dir }}/encryption_keygen"
      name: keygen
 
-  - name: Include vars of agent_token into the 'agent_token'
+  - name: Load previously created agent_token & load into the 'agent_token'
     include_vars:
      file: "{{ tokens_dir }}/agent_token"
      name: agenttoken

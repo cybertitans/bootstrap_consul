@@ -12,8 +12,8 @@
       pause:
        seconds: 20
 
-# Create and bootstrap master_token (make sure you secure it)
-    - name: bootstrap Server
+# Create master_token and bootstrap cluster (make sure you secure token)
+    - name: bootstrap cluster
       uri:
        url: "http://{{ groups['consulservers'][0] }}:8500/v1/acl/bootstrap"
        headers:
@@ -49,7 +49,7 @@
        - files/dnsreadonly.json
        - files/listallnodes.json
 
-# Create agent token and save it to ~/.agent_token
+# Create agent token and save it to agent_token file
     - name: Create a new agent_token using shell module
       environment:
        CONSUL_HTTP_TOKEN: "{{ master_token.json.SecretID }}"
@@ -64,10 +64,10 @@
     - name: Write the agent_token output to a local file
       copy:
        content: "{{ agent_token.stdout}}"
-       dest: "{{tokens_dir}}/agent_token"
+       dest: "{{ tokens_dir }}/agent_token"
       delegate_to: localhost
 
-# Create a new token for the UI and associated token and save it ~/.ui_token
+# Create a new token for the UI and associated token and save it ui_token file
     - name: Create a new token for ui using shell module
       environment:
        CONSUL_HTTP_TOKEN: "{{ master_token.json.SecretID }}"
@@ -82,7 +82,7 @@
     - name: Write the ui_token output to a local file
       copy:
        content: "{{ ui_token.stdout_lines }}"
-       dest: "{{tokens_dir}}/ui_token"
+       dest: "{{ tokens_dir }}/ui_token"
       delegate_to: localhost
 
 # Update the anonymous token and associate with DNS and node list policy (Optional)

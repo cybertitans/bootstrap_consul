@@ -14,7 +14,7 @@
      register: vault_token
      delegate_to: localhost
 
-   - name: Print returned vault_token and make token as var
+   - name: Print returned vault_token and make token available as var
      debug:
       var: vault_token.stdout
 
@@ -30,7 +30,7 @@
         - vault secrets enable -path=pki_int pki
         - vault secrets tune -max-lease-ttl=43800h pki_int
 
-   - name: Install JQ so json output can manipulate and only cert extracted
+   - name: Install JQ so json output can manipulated and only csr can be extracted
      apt:
       name: jq
       state: present

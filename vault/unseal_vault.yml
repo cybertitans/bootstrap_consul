@@ -8,7 +8,7 @@
       default: "no"
 
   tasks:
-    # Read previously created vault tokens from local file “{{ tokens_dir }}”/vault_init
+    # Read previously created vault tokens from local a file “{{ tokens_dir }}”/vault_init
     - name: Load the master_token created in the build/init process
       shell: cat {{ tokens_dir }}/vault_init | awk '/[Unseal]/{print  $4 "\n" $8 "\n" $12}'| sed 's/[",]//g'
       register: vault_tokens

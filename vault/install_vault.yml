@@ -14,7 +14,7 @@
 
 # Load agent_token that was previously created by consul playbooks into agenttoken var.
   tasks:
-  - name: Include vars of ACL agent_token into the 'agent_token'
+  - name: Load previously created ACL agent_token into the 'agent_token' var
     include_vars:
      file: "{{ tokens_dir }}/agent_token"
      name: agenttoken
@@ -67,7 +67,7 @@
      src: templates/config.json.j2
      dest: "/etc/vault/config.json"
 
-# Update trusted root certificates
+# Update trusted root certificates on the servers
   - name: Update trusted root certificates
     shell: "update-ca-certificates"
 
@@ -110,7 +110,7 @@
     debug:
      var: vault_init.stdout_lines
     run_once: true
-# Copy cluster tokens to file (make sure you secure these)
+# Copy cluster tokens to a local file (make sure you secure these)
   - name: copy the vault_init output to a local file
     become: no
     copy:

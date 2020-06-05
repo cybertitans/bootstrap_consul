@@ -6,7 +6,7 @@
 # Selects the first server in your inventory vault server
 # Cleans up and deletes all files after config is completed
 
-- name: install & configure the agents with the right token
+- name: Unseal the vault so changes it can be configured
   import_playbook: unseal_vault.yml
 
 - name: Configure vault
@@ -36,7 +36,7 @@
 # Fail if sealed
    - name: Print returned vault_status_results and fail if sealed
      fail:
-      msg: "FAILED! - Please unseal Vault and then rerun this playbook"
+      msg: "FAILED! - Please unseal Vault and then return to this playbook"
      when: vault_status_result.failed is true
 
 # Enable mysql secrets engine

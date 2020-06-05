@@ -8,8 +8,8 @@
   - name: Include install consul playbook
     include: tasks/installconsul.yml
 
-# Create tokens_dir
-  - name: Create directory for all tokes
+# Create tokens_dir on the local server
+  - name: Create directory for all tokens
     become: no
     file:
       path: "{{ tokens_dir }}"
@@ -17,7 +17,7 @@
     delegate_to: localhost
 
 # Create consul keygen 32-bytes, Base64 encoded
-  - name: Create new encrytion keygen using shell module
+  - name: Create a new encrytion key using shell module
     shell: 'consul keygen'
     run_once: true
     register: keygen
