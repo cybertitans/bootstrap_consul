@@ -81,9 +81,9 @@
      args:
       warn: no
 
-   - name: Copy trusted-user-ca-keys.pem to local server
+   - name: Copy public_key to local server
       src: trusted-user-ca-keys.pem
-      dest: {{ tokens_dir }}/
+      dest: "{{ tokens_dir }}/"
       flat: yes
 
 # Clean up and remove the files that are no longer required
