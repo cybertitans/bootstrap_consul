@@ -13,7 +13,7 @@
      file: "{{ tokens_dir }}/agent_token"
      name: agenttoken
 
-# Copy consul binary to clients/agents
+# Install and copy consul binary to clients/agents
   - name: Include install consul playbook
     include: tasks/installconsul.yml
 
@@ -25,7 +25,7 @@
     notify: restart consul
 
 # Copy the consul.service file to agents/clients
-  - name: Copy consul.service to remote servers 
+  - name: Copy consul.service to remote servers
     copy:
      src: files/agent_consul.service
      dest: "/etc/systemd/system/consul.service"

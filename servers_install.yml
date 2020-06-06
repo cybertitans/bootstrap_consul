@@ -4,7 +4,7 @@
 
   tasks:
 
-  # Copy consul binary to servers
+  # Install and copy consul binary to servers
   - name: Include install consul playbook
     include: tasks/installconsul.yml
 
@@ -41,7 +41,7 @@
       dest: "/etc/consul.d/config.json"
 
 # Copy the consul.service file to server
-  - name: Copy consul.service template to remote servers 
+  - name: Copy consul.service template to remote servers
     copy:
      src: files/consul.service
      dest: "/etc/systemd/system/consul.service"
