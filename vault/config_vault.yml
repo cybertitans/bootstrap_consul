@@ -6,7 +6,7 @@
 # Selects the first server in your inventory vault server
 # Cleans up and deletes all files after config is completed
 
-- name: Unseal the vault so changes it can be configured
+- name: Unseal vault so it can be configured
   import_playbook: unseal_vault.yml
 
 - name: Configure vault
@@ -89,7 +89,7 @@
 
 # Clean up and remove the files that are no longer required
 #
-- name: Clean up and removed files no longer required 
+- name: Clean up and removed files no longer required
   hosts: vaultservers
   become: yes
   tasks:
