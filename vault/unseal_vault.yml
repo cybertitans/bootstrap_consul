@@ -14,7 +14,7 @@
       register: unseal_tokens
       delegate_to: localhost
 
-    - name: Print returned unseal unseal_tokens and make them available as "unseal_tokens" var
+    - name: Print returned unseal_tokens and make them available as a var
       debug:
        var: unseal_tokens.stdout_lines
 
