@@ -9,12 +9,12 @@
 
   tasks:
     # Read previously created vault tokens from local a file “{{ tokens_dir }}”/vault_init
-    - name: Load the unseal token created in the build/init process
+    - name: Load unseal tokens created in the build/init process
       shell: cat {{ tokens_dir }}/vault_init | awk '/[Unseal]/{print  $4 "\n" $8 "\n" $12}'| sed 's/[",]//g'
       register: unseal_tokens
       delegate_to: localhost
 
-    - name: Print returned unseal vault_tokens and make them available as "vault_tokens" var
+    - name: Print returned unseal unseal_tokens and make them available as "unseal_tokens" var
       debug:
        var: unseal_tokens.stdout_lines
 
