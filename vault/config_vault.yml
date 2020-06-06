@@ -83,7 +83,7 @@
 
    - name: Copy public_key to local server
       src: trusted-user-ca-keys.pem
-      dest: "{{ tokens_dir }}/"
+      dest: ~/
       flat: yes
 
 # Clean up and remove the files that are no longer required
