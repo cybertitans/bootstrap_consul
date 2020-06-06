@@ -89,7 +89,8 @@
 
 # Clean up and remove the files that are no longer required
 #
-- hosts: vaultservers
+- name: Clean up and removed files no longer required 
+  hosts: vaultservers
   become: yes
   tasks:
     - name: Clean up and remove files that are no longer required
