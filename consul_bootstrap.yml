@@ -8,12 +8,12 @@
    hosts: consulservers[0]
    tasks:
 
-    - name: pause to allow the cluster to come up
+    - name: Pause to allow the cluster to come up
       pause:
        seconds: 20
 
 # Create master_token and bootstrap cluster (make sure you secure token)
-    - name: bootstrap cluster
+    - name: Bootstrap cluster
       uri:
        url: "http://{{ groups['consulservers'][0] }}:8500/v1/acl/bootstrap"
        headers:
