@@ -35,7 +35,7 @@
      comment: "vault account"
 
 # Create required directories
-  - name: create required directories
+  - name: Create required directories
     file:
      path: "{{ item }}"
      state: directory
@@ -111,7 +111,7 @@
      var: vault_init.stdout_lines
     run_once: true
 # Copy cluster tokens to a local file (make sure you secure these)
-  - name: copy the vault_init output to a local file
+  - name: Copy the vault_init output to a local file
     become: no
     copy:
      content: '{{ vault_init.stdout_lines }}'
