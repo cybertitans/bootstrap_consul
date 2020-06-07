@@ -44,10 +44,7 @@
      shell: |
       vault write -format=json pki_int/intermediate/generate/internal
          common_name="{{ domain }} Intermediate Authority" | jq -r '.data.csr' > pki_intermediate.csr
-      vault write "pki_int/roles/{{ pki-role }}" "allowed_domains={{ domain }}"
-         allow_subdomains=true max_ttl="720h"
-
-
+    
    - name: Copy pki_in CSR file to local server
      fetch:
       src: pki_intermediate.csr
