@@ -43,8 +43,7 @@
      environment:
        VAULT_ADDR: "{{ vault_add }}"
        VAULT_TOKEN: "{{ vault_token.stdout }}"
-     shell: |
-      vault write -format=json pki_int/intermediate/generate/internal
+     shell: vault write -format=json pki_int/intermediate/generate/internal
          common_name="{{ domain }} Intermediate Authority" | jq -r '.data.csr' > pki_intermediate.csr
 
    - name: Copy pki_in CSR file to local server
